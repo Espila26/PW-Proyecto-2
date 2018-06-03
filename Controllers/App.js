@@ -10,6 +10,7 @@ class App extends React.Component {
         cuadras:[], id_cuadra:0, id_region_cuadra:0, code_cuadra:'', description:''};
         this.handleFields = this.handleFields.bind(this);
         this.handleChangeData = this.handleChangeData.bind(this);
+        this.handleChangeDataRegion = this.handleChangeDataRegion.bind(this);
         this.handleReloadSucursal = this.handleReloadSucursal.bind(this);
         this.handleReloadRegion = this.handleReloadRegion.bind(this);
         this.handleReloadCuadra = this.handleReloadCuadra.bind(this); 
@@ -25,8 +26,10 @@ class App extends React.Component {
 
     handleChangeData() {
       this.handleChangeSucursal();
-      this.handleChangeRegion();
-      this.handleChangeCuadra();
+    }
+
+    handleChangeDataRegion(){
+      this.handleReloadRegion();
     }
 
     componentWillMount() {
@@ -42,6 +45,7 @@ class App extends React.Component {
         })
         .then((data) => {
             this.setState({ sucursales: data, loading:false });
+           // alert(JSON.stringify(data));
             this.forceUpdate();
         })
     }
@@ -52,7 +56,7 @@ class App extends React.Component {
             return response.json()
         })
         .then((data) => {
-            this.setState({ regiones: data, loading:false });
+            this.setState({ regiones: data});
             this.forceUpdate();
         })
     }
@@ -63,7 +67,7 @@ class App extends React.Component {
             return response.json()
         })
         .then((data) => {
-            this.setState({ cuadras: data, loading:false });
+            this.setState({ cuadras: data});
             this.forceUpdate();
         })
     }
@@ -73,7 +77,7 @@ class App extends React.Component {
     }
 
     handleChangeRegion(region){
-      this.setState({id_region: region.id, id_sucursal_reg: region.id_sucursal, code: region.code, region_manager:region.region_manager});
+      this.setState({id_region: region.id, id_sucursal_reg: region.id_sucursal, code: region.code, name: region.name, region_manager:region.region_manager});
     }
 
     handleChangeCuadra(cuadra){
@@ -92,10 +96,16 @@ class App extends React.Component {
             <Menu/>
             <Table>
               <tr width="100%">
-                <td width="50%"><FormSucursal handleFields={this.handleFields} id_sucursal={this.state.id_sucursal} 
+                {/*<!--<td width="50%"><FormSucursal handleFields={this.handleFields} id_sucursal={this.state.id_sucursal} 
                 manager_name={this.state.manager_name} phone={this.state.phone} city={this.state.city} address={this.state.address} 
                 sucursales={this.state.sucursales} handleChangeData =  {this.handleChangeData}/></td>
-                <td width="50%"><ListaSucursal sucursales={this.state.sucursales} handleChangeData =  {this.handleChangeData} handleChangeSucursal = {this.handleChangeSucursal}/></td>
+            <td width="50%"><ListaSucursal sucursales={this.state.sucursales} handleChangeData =  {this.handleChangeData} handleChangeSucursal = {this.handleChangeSucursal}/></td>-->*/}
+
+                <td width="50%"><FormRegion handleFields={this.handleFields} id_region={this.state.id_region} 
+                id_sucursal_reg={this.state.id_sucursal_reg} code={this.state.code} name ={this.state.name} region_manager={this.state.region_manager}  
+                regiones={this.state.regiones} sucursales={this.state.sucursales} handleChangeDataRegion =  {this.handleChangeDataRegion}/></td>
+                <td width="50%"><ListaRegion regiones={this.state.regiones} handleChangeDataRegion =  {this.handleChangeDataRegion} handleChangeRegion = {this.handleChangeRegion}/></td>
+
               </tr>
             </Table>
             </div> 

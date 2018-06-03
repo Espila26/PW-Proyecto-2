@@ -22,29 +22,36 @@ class FormRegion extends React.Component {
             method: "put",
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                method: 'put',
-                id_sucursal = this.props.id_sucursal,
+                id_sucursal: this.props.id_sucursal_reg,
                 code: this.props.code,
                 name: this.props.name,
                 region_manager: this.props.region_manager})
     }).then((response) => {
-           this.props.handleChangeData();
+           this.props.handleChangeDataRegion();
          }
     );
     }
     
     handleUpdate() {
+        /*lert(JSON.stringify({
+            id: this.props.id_region, 
+            id_sucursal: this.props.id_sucursal_reg,
+            code: this.props.code,
+            name: this.props.name,
+            region_manager: this.props.region_manager
+        }));*/
         fetch("datos.php/Region/"+this.props.id_region,{
             method: "post",
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 id: this.props.id_region, 
-                id_sucursal = this.props.id_sucursal,
+                id_sucursal: this.props.id_sucursal_reg,
                 code: this.props.code,
                 name: this.props.name,
                 region_manager: this.props.region_manager})
      }).then((response) => {
-           this.props.handleChangeData();
+        alert(response.ok);
+           this.props.handleChangeDataRegion();
          }
     );
     }
@@ -55,21 +62,19 @@ class FormRegion extends React.Component {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ method: 'delete'})
         }).then((response) => {
-           this.props.handleChangeData();
+           this.props.handleChangeDataRegion();
          }
     );
     }
 
     render() {
+        let sucursales = this.props.sucursales;
+        let optionItems = sucursales.map((sucursal) => <option key = {sucursal.id}>{sucursal.id}</option>);
         return(<form><Table><tbody>
            <tr><td width="30%"><Label>Sucursal:</Label></td>
                <td width="20%">
-                    <select value ={this.props.id_sucursal} onChange={this.props.handleFields}>
-                        {this.props.sucursales.map((sucursal) => {
-                            <option value = {sucursal.id}>
-                                {sucursal.id}
-                            </option>
-                        })}
+                    <select onChange={this.props.handleFields} name='id_sucursal_reg'>
+                        {optionItems}
                     </select>
                </td></tr>
            <tr><td><Label>Code:</Label></td>

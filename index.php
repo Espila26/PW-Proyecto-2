@@ -9,6 +9,8 @@
     <script src="reactstrap.full.min.js"></script>
     <!--<script type="text/babel" src="Controllers/Login.js"></script>
     <script type="text/babel" src="Controllers/SignIn.js"></script>-->
+    <script type="text/babel" src="Controllers/ListaRegion.js"></script>
+    <script type="text/babel" src="Controllers/FormRegion.js"></script>
     <script type="text/babel" src="Controllers/ListaSucursal.js"></script>
     <script type="text/babel" src="Controllers/FormSucursal.js"></script>
     <script type="text/babel" src="Controllers/Menu.js"></script>
