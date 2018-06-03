@@ -5,7 +5,7 @@ class ListaRegion extends React.Component {
     }
     handleDetails(e) {
         const index = e.currentTarget.getAttribute('data-item');
-        this.props.handleReset();
+        //this.props.handleReset();
         this.props.handleChangeCuadra(this.props.regiones[index]);
     }
     render() {
