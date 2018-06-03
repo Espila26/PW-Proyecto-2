@@ -5,7 +5,7 @@ const Label = Reactstrap.Label;
 const Input = Reactstrap.Input;
 const FormText = Reactstrap.FormText;
 
-class FormRegion extends React.Component {
+class FormRegistro extends React.Component {
     constructor(props) {
        super(props)
         this.handleInsert = this.handleInsert.bind(this);
