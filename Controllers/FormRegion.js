@@ -5,7 +5,7 @@ const Label = Reactstrap.Label;
 const Input = Reactstrap.Input;
 const FormText = Reactstrap.FormText;
 
-class FormRegistro extends React.Component {
+class FormRegion extends React.Component {
     constructor(props) {
        super(props)
         this.handleInsert = this.handleInsert.bind(this);
@@ -63,8 +63,15 @@ class FormRegistro extends React.Component {
     render() {
         return(<form><Table><tbody>
            <tr><td width="30%"><Label>Sucursal:</Label></td>
-               <td width="20%"><Input type="number" name="manager_name"
-                   value={this.props.id_sucursal} onChange={this.props.handleFields}/></td></tr>
+               <td width="20%">
+                    <select value ={this.props.id_sucursal} onChange={this.props.handleFields}>
+                        {this.props.sucursales.map((sucursal) => {
+                            <option value = {sucursal.id}>
+                                {sucursal.id}
+                            </option>
+                        })}
+                    </select>
+               </td></tr>
            <tr><td><Label>Code:</Label></td>
                <td><Input type="number" name="code"
                    value={this.props.code} onChange={this.props.handleFields}/></td></tr>

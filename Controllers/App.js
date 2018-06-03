@@ -13,7 +13,9 @@ class App extends React.Component {
         this.handleReloadSucursal = this.handleReloadSucursal.bind(this);
         this.handleReloadRegion = this.handleReloadRegion.bind(this);
         this.handleReloadCuadra = this.handleReloadCuadra.bind(this); 
-        this.handleChangeSucursal = this.handleChangeSucursal.bind(this);    
+        this.handleChangeSucursal = this.handleChangeSucursal.bind(this);
+        this.handleChangeRegion = this.handleChangeRegion.bind(this);
+        this.handleChangeCuadra = this.handleChangeCuadra.bind(this);    
     }
 
     handleFields(event) {
@@ -22,11 +24,15 @@ class App extends React.Component {
     }
 
     handleChangeData() {
-      this.handleReloadSucursal();
+      this.handleChangeSucursal();
+      this.handleChangeRegion();
+      this.handleChangeCuadra();
     }
 
     componentWillMount() {
       this.handleReloadSucursal();
+      this.handleReloadRegion();
+      this.handleReloadCuadra();
     }
 
     handleReloadSucursal(){
