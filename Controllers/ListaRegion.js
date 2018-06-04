@@ -25,7 +25,7 @@ class ListaRegion extends React.Component {
               </tbody>
             </table>
       );
-     }
+     } 
      return (<p></p>)
     }
 }

@@ -16,7 +16,8 @@ class SignIn extends React.Component {
     }
 
     signIn(){
-        alert('inserting...');
+        this.props.login(true);
+        this.props.changeView('sucursales');
         fetch("datos.php/User",{
             method: "post",
             headers: {'Content-Type': 'application/json'},
@@ -25,7 +26,7 @@ class SignIn extends React.Component {
               userName: this.props.userName,
               password: this.props.password
             })
-          }).then((response) => {alert(response.ok)});
+          }).then((response) => {});
     }
 
     render() {

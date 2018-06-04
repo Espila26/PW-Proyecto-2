@@ -1,4 +1,4 @@
-class ListaSuscriptiores extends React.Component {
+class ListaSuscriptores extends React.Component {
     constructor(props) {
       super(props)
       this.handleDetails = this.handleDetails.bind(this);
@@ -6,7 +6,7 @@ class ListaSuscriptiores extends React.Component {
     handleDetails(e) {
         const index = e.currentTarget.getAttribute('data-item');
         this.props.handleReset();
-        this.props.handleChangeSuscriptor(this.props.cuadras[index]);
+        this.props.handleChangeSuscriptores(this.props.suscriptores[index]);
     }
     render() {
       if (this.props.cuadras.length > 0) {

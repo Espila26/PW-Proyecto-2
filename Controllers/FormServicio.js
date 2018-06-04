@@ -23,7 +23,7 @@ class FormServicio extends React.Component {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 method: 'put',
-                id_suscriptor = this.props.id_suscriptor,
+                id_suscriptor: this.props.id_suscriptor,
                 location: this.props.location,
                 code: this.props.code,
                 type: this.props.type,

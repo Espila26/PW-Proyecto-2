@@ -23,7 +23,7 @@ class FormCuadra extends React.Component {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 method: 'put',
-                id_region = this.props.id_region,
+                id_region: this.props.id_region,
                 code: this.props.code,
                 description: this.props.description})
     }).then((response) => {
@@ -38,7 +38,7 @@ class FormCuadra extends React.Component {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 id: this.props.id_cuadra, 
-                id_region = this.props.id_region,
+                id_region: this.props.id_region,
                 code: this.props.code,
                 description: this.props.description})
      }).then((response) => {
