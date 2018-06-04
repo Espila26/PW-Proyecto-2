@@ -59,10 +59,15 @@ class FormCuadra extends React.Component {
     }
 
     render() {
+        let regiones = this.props.regiones;
+        let optionItems = regiones.map((region) => <option key = {region.id}>{region.id}</option>);
         return(<form><Table><tbody>
            <tr><td width="30%"><Label>Region:</Label></td>
-               <td width="20%"><Input type="number" name="id_region"
-                   value={this.props.id_region} onChange={this.props.handleFields}/></td></tr>
+               <td width="20%">
+               <select onChange={this.props.handleFields} name='id_region_cuadras'>
+                        {optionItems}
+                </select>
+               </td></tr>
            <tr><td><Label>Code:</Label></td>
                <td><Input type="number" name="code"
                    value={this.props.code} onChange={this.props.handleFields}/></td></tr>

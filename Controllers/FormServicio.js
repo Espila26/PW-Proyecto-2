@@ -48,7 +48,7 @@ class FormServicio extends React.Component {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 id: this.props.id_servicio, 
-                id_suscriptor = this.props.id_suscriptor,
+                id_suscriptor = this.props.id_suscriptor_servicio,
                 location: this.props.location,
                 code: this.props.code,
                 type: this.props.type,
@@ -79,10 +79,15 @@ class FormServicio extends React.Component {
     }
 
     render() {
+        let suscriptores = this.props.suscriptores;
+        let optionItems = suscriptores.map((suscriptor) => <option key = {suscriptor.id}>{suscriptor.id}</option>);
         return(<form><Table><tbody>
            <tr><td width="30%"><Label>Suscriptor:</Label></td>
-               <td width="20%"><Input type="number" name="id_suscriptor"
-                   value={this.props.id_suscriptor} onChange={this.props.handleFields}/></td></tr>
+               <td width="20%">
+               <select onChange={this.props.handleFields} name='id_suscriptor_servicio'>
+                        {optionItems}
+                </select>
+               </td></tr>
            <tr><td><Label>Location:</Label></td>
                <td><Input type="text" name="location"
                    value={this.props.location} onChange={this.props.handleFields}/></td></tr>
