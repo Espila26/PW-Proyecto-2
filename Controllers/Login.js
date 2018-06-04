@@ -13,6 +13,7 @@ class Login extends React.Component {
     constructor(props) {
         super(props)
         this.login = this.login.bind(this);
+        this.signIn = this.signIn.bind(this);
     }
 
     login(){
@@ -26,8 +27,15 @@ class Login extends React.Component {
             })
           }).then((response) => {return response.json()})
           .then((data) => {
-            alert(JSON.stringify(data));
+            if(data){
+              this.props.login(true);
+              this.props.changeView('sucursales');
+            }
            })
+    }
+
+    signIn(){
+      this.props.changeView('signIn');
     }
 
     render() {
@@ -47,7 +55,7 @@ class Login extends React.Component {
                   <Button style={{width:"100%", background: "#60c7c1"}} onClick={this.login}>Login</Button>
                 </FormGroup>
                 <FormGroup> 
-                  <Button style={{width:"100%"}}>Sign In</Button>
+                  <Button style={{width:"100%"}} onClick={this.signIn}>Sign In</Button>
                 </FormGroup> 
               </Form>  
             </CardBody>
