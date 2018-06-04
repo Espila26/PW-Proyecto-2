@@ -1,3 +1,4 @@
+const Table = Reactstrap.Table;
 class ListaRegion extends React.Component {
     constructor(props) {
       super(props)
@@ -18,12 +19,12 @@ class ListaRegion extends React.Component {
                     <td>{region.name}</td>
                     <td>{region.region_manager}</td></tr>);
         return (
-            <table width="100%" border="1">
+            <Table striped>
               <thead><tr><th>Id</th><th>Sucursal</th><th>Code</th><th>Name</th><th>Region Manager</th></tr></thead>
               <tbody>
                 {rows}
               </tbody>
-            </table>
+            </Table>
       );
      } 
      return (<p></p>)

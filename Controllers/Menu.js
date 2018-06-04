@@ -30,15 +30,27 @@ class Menu extends React.Component {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand name='sucursales' onClick={this.change}>reactstrap</NavbarBrand>
+          <NavbarBrand name='sucursales' onClick={this.change}>Reporte de Averias</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
+                <NavLink name='sucursales' onClick={this.change}>Sucursales</NavLink>
+              </NavItem>
+              <NavItem>
                 <NavLink name='regiones' onClick={this.change}>Regiones</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+                <NavLink name='cuadras' onClick={this.change}>Cuadras</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink name='suscriptores' onClick={this.change}>Suscriptores</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink name='servicios' onClick={this.change}>Servicios</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink name='reportes' onClick={this.change}>Reportes</NavLink>
               </NavItem>
             </Nav>
           </Collapse>

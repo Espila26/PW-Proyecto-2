@@ -1,3 +1,5 @@
+const Table = Reactstrap.Table;
+
 class ListaCuadra extends React.Component {
     constructor(props) {
       super(props)
@@ -5,7 +7,7 @@ class ListaCuadra extends React.Component {
     }
     handleDetails(e) {
         const index = e.currentTarget.getAttribute('data-item');
-        this.props.handleReset();
+        //this.props.handleReset();
         this.props.handleChangeCuadra(this.props.cuadras[index]);
     }
     render() {
@@ -17,12 +19,12 @@ class ListaCuadra extends React.Component {
                     <td>{cuadra.code}</td>
                     <td>{cuadra.description}</td></tr>);
         return (
-            <table width="100%" border="1">
-              <thead><tr><th>Id</th><th>Region</th><th>Code</th><th>Description</th></tr></thead>
+            <Table striped>
+              <thead><tr style={{background: "#60c7c1", color:"white"}}><th>Id</th><th>Region</th><th>Code</th><th>Description</th></tr></thead>
               <tbody>
                 {rows}
               </tbody>
-            </table>
+            </Table>
       );
      }
      return (<p></p>)

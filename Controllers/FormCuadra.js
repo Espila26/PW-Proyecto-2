@@ -23,11 +23,11 @@ class FormCuadra extends React.Component {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 method: 'put',
-                id_region: this.props.id_region,
-                code: this.props.code,
+                id_region: this.props.id_region_cuadra,
+                code: this.props.code_cuadra,
                 description: this.props.description})
     }).then((response) => {
-           this.props.handleChangeData();
+           this.props.handleChangeDataCuadra();
          }
     );
     }
@@ -38,11 +38,11 @@ class FormCuadra extends React.Component {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 id: this.props.id_cuadra, 
-                id_region: this.props.id_region,
-                code: this.props.code,
+                id_region: this.props.id_region_cuadra,
+                code: this.props.code_cuadra,
                 description: this.props.description})
      }).then((response) => {
-           this.props.handleChangeData();
+           this.props.handleChangeDataCuadra();
          }
     );
     }
@@ -53,7 +53,7 @@ class FormCuadra extends React.Component {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ method: 'delete'})
         }).then((response) => {
-           this.props.handleChangeData();
+           this.props.handleChangeDataCuadra();
          }
     );
     }
@@ -64,13 +64,13 @@ class FormCuadra extends React.Component {
         return(<form><Table><tbody>
            <tr><td width="30%"><Label>Region:</Label></td>
                <td width="20%">
-               <select onChange={this.props.handleFields} name='id_region_cuadras'>
+               <select onChange={this.props.handleFields} name='id_region_cuadra'>
                         {optionItems}
                 </select>
                </td></tr>
            <tr><td><Label>Code:</Label></td>
-               <td><Input type="number" name="code"
-                   value={this.props.code} onChange={this.props.handleFields}/></td></tr>
+               <td><Input type="number" name="code_cuadra"
+                   value={this.props.code_cuadra} onChange={this.props.handleFields}/></td></tr>
            <tr><td><Label>Description:</Label></td>
                <td><Input type="text" name="description"
                    value={this.props.description} onChange={this.props.handleFields}/></td></tr>

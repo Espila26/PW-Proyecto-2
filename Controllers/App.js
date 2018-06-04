@@ -67,7 +67,7 @@ class App extends React.Component {
       this.handleReloadCuadra();
       this.handleReloadServicio();
       this.handleReloadReporte();
-      this.handleChangeDataSuscriptores();
+      this.handleReloadSuscriptores();
     }
 
     handleReloadSucursal(){
@@ -94,7 +94,7 @@ class App extends React.Component {
     }
 
     handleReloadCuadra(){
-      fetch('datos.php/Cuadras')
+      fetch('datos.php/Cuadra')
         .then((response) => {
             return response.json()
         })
@@ -146,7 +146,7 @@ class App extends React.Component {
     }
 
     handleChangeCuadra(cuadra){
-      this.setState({id_cuadra: cuadra.id, id_region_cuadra: cuadra.id_region, code: region.code_cuadra, description:cuadra.description});
+      this.setState({id_cuadra: cuadra.id, id_region_cuadra: cuadra.id_region, code_cuadra: cuadra.code, description:cuadra.description});
     }
 
     handleChangeServicio(servicio){
@@ -161,7 +161,7 @@ class App extends React.Component {
     }
 
     handleChangeSuscriptor(suscriptor){
-      this.setState({id_suscriptor: suscriptor.id, name: suscriptor.name, phone: suscriptor.phone_susc, address:suscriptor.address_susc, id_suscriptor: suscriptor.cedula});
+      this.setState({id_suscriptor: suscriptor.id, name: suscriptor.name, phone_susc: suscriptor.phone, address_susc:suscriptor.address, id_suscriptor: suscriptor.cedula});
     }
 
     changeView(view){
@@ -185,7 +185,7 @@ class App extends React.Component {
               || (!this.state.loading) && (this.state.logged) && 
               <div>
                 <Menu currentPage={this.state.currentPage} changeView={this.changeView}/> 
-                {((this.state.currentPage==='sucursales') &&
+                {((this.state.currentPage==='regiones') &&
                   <div><Table><tr width="100%">
                   <td width="50%"><FormRegion handleFields={this.handleFields} id_region={this.state.id_region} 
                   id_sucursal_reg={this.state.id_sucursal_reg} code={this.state.code} name ={this.state.name} region_manager={this.state.region_manager}  
@@ -194,7 +194,7 @@ class App extends React.Component {
                   </tr></Table></div> 
                 )
 
-                ||((this.state.currentPage==='regiones') &&
+                ||((this.state.currentPage==='sucursales') &&
                 <div><Table><tr width="100%">
                     <td width="50%"><FormSucursal handleFields={this.handleFields} id_sucursal={this.state.id_sucursal} 
                     manager_name={this.state.manager_name} phone={this.state.phone} city={this.state.city} address={this.state.address} 
@@ -202,6 +202,43 @@ class App extends React.Component {
                 <td width="50%"><ListaSucursal sucursales={this.state.sucursales} handleChangeData =  {this.handleChangeData} handleChangeSucursal = {this.handleChangeSucursal}/></td>
                 </tr></Table></div> 
               )
+
+              ||((this.state.currentPage==='cuadras') &&
+                <div><Table><tr width="100%">
+                    <td width="50%"><FormCuadra handleFields={this.handleFields} cuadras={this.state.cuadras} id_cuadra={this.state.id_cuadra} id_region_cuadra={this.state.id_region_cuadra}
+                                                code_cuadra={this.state.code_cuadra} description={this.state.description} handleChangeDataCuadra =  {this.handleChangeDataCuadra} regiones={this.state.regiones}/></td>
+                <td width="50%"><ListaCuadra cuadras={this.state.cuadras} handleChangeCuadra =  {this.handleChangeCuadra}/></td>
+                </tr></Table></div> 
+              )
+
+              ||((this.state.currentPage==='suscriptores') &&
+              <div><Table><tr width="100%">
+                  <td width="50%"><FormSuscriptores handleFields={this.handleFields} suscriptores={this.state.suscriptores} id_suscriptor={this.state.id_suscriptor} name={this.state.name} 
+                                  phone_susc={this.state.phone_susc} address_susc={this.state.address_susc} cedula={this.state.cedula} handleChangeDataSuscriptores =  {this.handleChangeDataSuscriptores} regiones={this.state.regiones}/></td>
+              <td width="50%"><ListaSuscriptores suscriptores={this.state.suscriptores} handleChangeSuscriptor =  {this.handleChangeSuscriptor}/></td>
+              </tr></Table></div> 
+            )
+
+            ||((this.state.currentPage==='servicios') &&
+            <div><Table><tr width="100%">
+                <td width="50%"><FormServicio handleFields={this.handleFields} servicios={this.state.servicios} id_servicio={this.state.id_servicio}
+                 id_suscriptor_servicio={this.state.id_suscriptor_servicio} location={this.state.location} code_serv={this.state.code_serv} type_serv={this.state.type_serv} 
+                 instalation_date={this.state.instalation_date} other_services={this.state.other_services} state_serv={this.state.state_serv} housing_type={this.state.housing_type}  
+                 floor_number={this.state.floor_number} external_hub_number={this.state.external_hub_number} cable_number={this.state.cable_number} 
+                 instalation_belongs_to_suscriptor={this.state.instalation_belongs_to_suscriptor} tvs_number={this.state.tvs_number} handleChangeDataServicio =  {this.handleChangeDataServicio}/></td>
+            <td width="50%"><ListaServicio servicios={this.state.servicios} handleChangeServicio =  {this.handleChangeServicio}/></td>
+            </tr></Table></div> 
+          )
+
+          ||((this.state.currentPage==='reportes') &&
+          <div><Table><tr width="100%">
+              <td width="50%"><FormReportes handleFields={this.handleFields} servicios={this.state.servicios} id_servicio={this.state.id_servicio}
+               id_suscriptor_servicio={this.state.id_suscriptor_servicio} reportes={this.state.reportes} id_reporte={this.state.id_reporte} id_suscriptor_rep={this.state.id_suscriptor_rep} 
+               id_servicio_rep={this.id_servicio_rep} date={this.state.date} type={this.state.type} description_rep={this.state.description_rep} 
+               servicios={this.state.servicios} suscriptores={this.state.suscriptores} handleChangeDataReporte =  {this.handleChangeDataReporte}/></td>
+          <td width="50%"><ListaReportes reportes={this.state.reportes} handleChangeReporte =  {this.handleChangeReporte}/></td>
+          </tr></Table></div> 
+        )
               }
             </div>
             }

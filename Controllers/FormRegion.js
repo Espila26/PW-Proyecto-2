@@ -73,9 +73,9 @@ class FormRegion extends React.Component {
         return(<form><Table><tbody>
            <tr><td width="30%"><Label>Sucursal:</Label></td>
                <td width="20%">
-                    <select onChange={this.props.handleFields} name='id_sucursal_reg'>
+                    <Input type="select" onChange={this.props.handleFields} name='id_sucursal_reg'>
                         {optionItems}
-                    </select>
+                    </Input>
                </td></tr>
            <tr><td><Label>Code:</Label></td>
                <td><Input type="number" name="code"

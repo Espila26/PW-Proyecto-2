@@ -5,7 +5,7 @@ const Label = Reactstrap.Label;
 const Input = Reactstrap.Input;
 const FormText = Reactstrap.FormText;
 
-class FormCuadra extends React.Component {
+class FormSuscriptores extends React.Component {
     constructor(props) {
        super(props)
         this.handleInsert = this.handleInsert.bind(this);
@@ -24,11 +24,11 @@ class FormCuadra extends React.Component {
             body: JSON.stringify({
                 method: 'put',
                 name: this.props.name,
-                phone: this.props.phone,
-                address: this.props.address,
+                phone: this.props.phone_susc,
+                address: this.props.address_susc,
                 id_suscriptor: this.props.cedula})
     }).then((response) => {
-           this.props.handleChangeData();
+           this.props.handleChangeDataSuscriptores();
          }
     );
     }
@@ -40,11 +40,11 @@ class FormCuadra extends React.Component {
             body: JSON.stringify({
                 id: this.props.id_suscriptor, 
                 name: this.props.name,
-                phone: this.props.phone,
-                address: this.props.address,
+                phone: this.props.phone_susc,
+                address: this.props.address_susc,
                 id_suscriptor: this.props.cedula})
      }).then((response) => {
-           this.props.handleChangeData();
+           this.props.handleChangeDataSuscriptores();
          }
     );
     }
@@ -55,7 +55,7 @@ class FormCuadra extends React.Component {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ method: 'delete'})
         }).then((response) => {
-           this.props.handleChangeData();
+           this.props.handleChangeDataSuscriptores();
          }
     );
     }
@@ -66,11 +66,11 @@ class FormCuadra extends React.Component {
                <td width="20%"><Input type="text" name="name"
                    value={this.props.name} onChange={this.props.handleFields}/></td></tr>
            <tr><td><Label>Phone:</Label></td>
-               <td><Input type="number" name="phone"
-                   value={this.props.phone} onChange={this.props.handleFields}/></td></tr>
+               <td><Input type="number" name="phone_susc"
+                   value={this.props.phone_susc} onChange={this.props.handleFields}/></td></tr>
            <tr><td><Label>Address:</Label></td>
-               <td><Input type="text" name="address"
-                   value={this.props.address} onChange={this.props.handleFields}/></td></tr>
+               <td><Input type="text" name="address_susc"
+                   value={this.props.address_susc} onChange={this.props.handleFields}/></td></tr>
             <tr><td><Label>Cedula:</Label></td>
                <td><Input type="text" name="cedula"
                    value={this.props.cedula} onChange={this.props.handleFields}/></td></tr>

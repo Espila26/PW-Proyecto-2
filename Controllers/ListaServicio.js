@@ -9,7 +9,7 @@ class ListaServicio extends React.Component {
         this.props.handleChangeServicio(this.props.servicios[index]);
     }
     render() {
-      if (this.props.cuadras.length > 0) {
+      if (this.props.servicios.length > 0) {
         const rows = this.props.servicios.map((servicio,index) =>
                     <tr key={index} data-item={index} onClick={this.handleDetails}>
                     <td>{servicio.id}</td>

@@ -5,11 +5,11 @@ class ListaSuscriptores extends React.Component {
     }
     handleDetails(e) {
         const index = e.currentTarget.getAttribute('data-item');
-        this.props.handleReset();
-        this.props.handleChangeSuscriptores(this.props.suscriptores[index]);
+        //this.props.handleReset();
+        this.props.handleChangeSuscriptor(this.props.suscriptores[index]);
     }
     render() {
-      if (this.props.cuadras.length > 0) {
+      if (this.props.suscriptores.length > 0) {
         const rows = this.props.suscriptores.map((suscriptor,index) =>
                     <tr key={index} data-item={index} onClick={this.handleDetails}>
                     <td>{suscriptor.id}</td>
