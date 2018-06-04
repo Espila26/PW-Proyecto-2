@@ -39,7 +39,7 @@ class FormCuadra extends React.Component {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 id: this.props.id_suscriptor, 
-                name = this.props.name,
+                name: this.props.name,
                 phone: this.props.phone,
                 address: this.props.address,
                 id_suscriptor: this.props.cedula})

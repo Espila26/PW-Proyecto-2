@@ -9,6 +9,14 @@
     <script src="reactstrap.full.min.js"></script>
     <!--<script type="text/babel" src="Controllers/Login.js"></script>
     <script type="text/babel" src="Controllers/SignIn.js"></script>-->
+    <script type="text/babel" src="Controllers/ListaSuscriptores.js"></script>
+    <script type="text/babel" src="Controllers/FormSuscriptores.js"></script>
+    <script type="text/babel" src="Controllers/ListaServicio.js"></script>
+    <script type="text/babel" src="Controllers/FormServicio.js"></script>
+    <script type="text/babel" src="Controllers/ListaReporte.js"></script>
+    <script type="text/babel" src="Controllers/FormReporte.js"></script>
+    <script type="text/babel" src="Controllers/ListaCuadra.js"></script>
+    <script type="text/babel" src="Controllers/FormCuadra.js"></script>
     <script type="text/babel" src="Controllers/ListaRegion.js"></script>
     <script type="text/babel" src="Controllers/FormRegion.js"></script>
     <script type="text/babel" src="Controllers/ListaSucursal.js"></script>
