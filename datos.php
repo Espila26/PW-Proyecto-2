@@ -394,7 +394,7 @@
             $dbh = $this->init();
             try {
                 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $stmt = $dbh->prepare("DELETE FROM Suscriptores id = :id");
+                $stmt = $dbh->prepare("DELETE FROM Suscriptores WHERE id = :id");
                 $stmt->bindParam(':id', $id);
                 $dbh->beginTransaction();
                 $stmt->execute();

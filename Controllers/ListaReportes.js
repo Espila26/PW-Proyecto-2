@@ -1,3 +1,5 @@
+const Table = Reactstrap.Table;
+
 class ListaReportes extends React.Component {
     constructor(props) {
       super(props)
@@ -20,12 +22,12 @@ class ListaReportes extends React.Component {
                     <td>{reporte.description}</td>
                     <td>{reporte.state}</td></tr>);
         return (
-            <table width="100%" border="1">
-              <thead><tr><th>Id</th><th>Suscriptor</th><th>Servicio</th><th>Date</th><th>Type</th><th>Decription</th><th>Estados</th></tr></thead>
+            <Table striped>
+              <thead><tr style={{background: "#60c7c1", color:"white"}}><th>Id</th><th>Suscriptor</th><th>Servicio</th><th>Date</th><th>Type</th><th>Decription</th><th>Estados</th></tr></thead>
               <tbody>
                 {rows}
               </tbody>
-            </table>
+            </Table>
       );
      }
      return (<p></p>)

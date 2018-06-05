@@ -64,9 +64,9 @@ class FormCuadra extends React.Component {
         return(<form><Table><tbody>
            <tr><td width="30%"><Label>Region:</Label></td>
                <td width="20%">
-               <select onChange={this.props.handleFields} name='id_region_cuadra'>
+               <Input type="select" onChange={this.props.handleFields} name='id_region_cuadra'>
                         {optionItems}
-                </select>
+                </Input>
                </td></tr>
            <tr><td><Label>Code:</Label></td>
                <td><Input type="number" name="code_cuadra"

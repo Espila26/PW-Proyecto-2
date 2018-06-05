@@ -18,7 +18,7 @@ class App extends React.Component {
         this.handleChangeDataCuadra = this.handleChangeDataCuadra.bind(this);
         this.handleChangeDataReporte = this.handleChangeDataReporte.bind(this);
         this.handleChangeDataServicio = this.handleChangeDataServicio.bind(this);
-        this.handleChangeDataSuscriptores = this.handleChangeDataServicio.bind(this);
+        this.handleChangeDataSuscriptores = this.handleChangeDataSuscriptores.bind(this);
         this.handleReloadSucursal = this.handleReloadSucursal.bind(this);
         this.handleReloadRegion = this.handleReloadRegion.bind(this);
         this.handleReloadCuadra = this.handleReloadCuadra.bind(this); 
@@ -28,6 +28,7 @@ class App extends React.Component {
         this.handleChangeSucursal = this.handleChangeSucursal.bind(this);
         this.handleChangeRegion = this.handleChangeRegion.bind(this);
         this.handleChangeCuadra = this.handleChangeCuadra.bind(this);
+        this.handleChangeSuscriptor = this.handleChangeSuscriptor.bind(this);
         this.changeView = this.changeView.bind(this); 
         this.login = this.login.bind(this);
     }
@@ -161,7 +162,7 @@ class App extends React.Component {
     }
 
     handleChangeSuscriptor(suscriptor){
-      this.setState({id_suscriptor: suscriptor.id, name: suscriptor.name, phone_susc: suscriptor.phone, address_susc:suscriptor.address, id_suscriptor: suscriptor.cedula});
+      this.setState({id_suscriptor: suscriptor.id, name: suscriptor.name, phone_susc: suscriptor.phone, address_susc:suscriptor.address, cedula: suscriptor.id_suscriptor});
     }
 
     changeView(view){
