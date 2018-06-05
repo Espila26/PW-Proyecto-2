@@ -438,6 +438,316 @@
         }
     }
 
+    class Servicio{
+        function init() {
+            try {
+                $dbh = new PDO('sqlite:reporteAverias.db');
+                return $dbh;
+            } catch (Exception $e) {
+                die("Unable to connect: " . $e->getMessage());
+            }
+        }
+        function get($id=null) {
+            $dbh = $this->init();
+            try {
+                if ($id!=null) {
+                    //$stmt = $dbh->prepare("SELECT * FROM productos WHERE id_factura = :id");
+                    $stmt = $dbh->prepare("SELECT * FROM Servicios WHERE id = :id");
+                    $stmt->bindParam(':id', $id, PDO::PARAM_STR);
+                } else {
+                    $stmt = $dbh->prepare("SELECT * FROM Servicios");
+                }
+                $stmt->execute();
+                $data = Array();
+                while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $data[] = $result;
+                }
+                echo json_encode($data);
+            } catch (Exception $e) {
+                echo "Failed: " . $e->getMessage();
+            }
+        }
+        function put($id=null) {
+            $dbh = $this->init();
+            try {
+                $_PUT=json_decode(file_get_contents('php://input'), True);
+                $idSuscriptor = $_PUT['id_suscriptor'];
+                $location = $_PUT['location'];
+                $code = $_PUT['code'];
+                $type = $_PUT['type'];
+                $instalationDate = $_PUT['instalation_date'];
+                $otherServices = $_PUT['other_services'];
+                $state = $_PUT['state'];
+                $housingType = $_PUT['housing_type'];
+                $floorNumber = $_PUT['floor_number'];
+                $externalHubNumber = $_PUT['external_hub_number'];
+                $cableMeters = $_PUT['cable_meters'];
+                $instalationBelongsSuscriptor = $_PUT['instalation_belongs_to_suscriptor'];
+                $tvsNumber = $_PUT['tvs_number'];
+                $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $stmt = $dbh->prepare("INSERT INTO Servicios (id_suscriptor,location,code,type,instalation_date,
+                                                              other_services,state,housing_type,floor_number,
+                                                              external_hub_number,cable_meters,instalation_belongs_to_suscriptor,
+                                                              tvs_number)
+                                                VALUES (:id_suscriptor,:location,:code,:type,:instalation_date,
+                                                        :other_services,:state,:housing_type,:floor_number,
+                                                        :external_hub_number,:cable_meters,:instalation_belongs_to_suscriptor,
+                                                        :tvs_number)");
+                $stmt->bindParam(':id_suscriptor', $idSuscriptor);
+                $stmt->bindParam(':location', $location);
+                $stmt->bindParam(':code', $code);
+                $stmt->bindParam(':type', $type);
+                $stmt->bindParam(':instalation_date', $instalationDate);
+                $stmt->bindParam(':other_services', $otherServices);
+                $stmt->bindParam(':state', $state);
+                $stmt->bindParam(':housing_type', $housingType);
+                $stmt->bindParam(':floor_number', $floorNumber);
+                $stmt->bindParam(':external_hub_number', $externalHubNumber);
+                $stmt->bindParam(':cable_meters', $cableMeters);
+                $stmt->bindParam(':instalation_belongs_to_suscriptor', $instalationBelongsSuscriptor);
+                $stmt->bindParam(':tvs_number', $tvsNumber);
+
+                $dbh->beginTransaction();
+                $stmt->execute();
+                $dbh->commit();
+                echo $stmt->insert_id;
+            } catch (Exception $e) {
+                $dbh->rollBack();
+                echo "Failed: " . $e->getMessage();
+            }
+        }
+        function delete($id=null) {
+            $dbh = $this->init();
+            try {
+                $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $stmt = $dbh->prepare("DELETE FROM Servicios WHERE id = :id");
+                $stmt->bindParam(':id', $id);
+                $dbh->beginTransaction();
+                $stmt->execute();
+                $dbh->commit();
+                echo 'Successfull';
+            } catch (Exception $e) {
+                $dbh->rollBack();
+                echo "Failed: " . $e->getMessage();
+            }
+        }
+        function deleteBySuscriptor($id=null) {
+            $dbh = $this->init();
+            try {
+                $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $stmt = $dbh->prepare("DELETE FROM Servicios WHERE id_suscriptor = :id_suscriptor");
+                $stmt->bindParam(':id_suscriptor', $id);
+                $dbh->beginTransaction();
+                $stmt->execute();
+                $dbh->commit();
+                echo 'Successfull';
+            } catch (Exception $e) {
+                $dbh->rollBack();
+                echo "Failed: " . $e->getMessage();
+            }
+        }
+        function post($id=null) {
+            $dbh = $this->init();
+            try {
+                $_POST=json_decode(file_get_contents('php://input'), True);
+                if ($_POST['method']=='put')
+                    return $this->put($id);
+                else if ($_POST['method']=='delete')
+                    return $this->delete($id);
+                else if ($_POST['method']=='deleteBySuscriptor')
+                    return $this->deleteBySuscriptor($id);
+                $id = $_POST['id'];
+                $idSuscriptor = $_POST['id_suscriptor'];
+                $location = $_POST['location'];
+                $code = $_POST['code'];
+                $type = $_POST['type'];
+                $instalationDate = $_POST['instalation_date'];
+                $otherServices = $_POST['other_services'];
+                $state = $_POST['state'];
+                $housingType = $_POST['housing_type'];
+                $floorNumber = $_POST['floor_number'];
+                $externalHubNumber = $_POST['external_hub_number'];
+                $cableMeters = $_POST['cable_meters'];
+                $instalationBelongsSuscriptor = $_POST['instalation_belongs_to_suscriptor'];
+                $tvsNumber = $_POST['tvs_number'];
+                $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $stmt = $dbh->prepare("UPDATE Servicios SET id_suscriptor=:id_suscriptor, location=:location,
+                                        code=:code, type=:type, instalation_date=:instalation_date,
+                                        other_services=:other_services, state=:state, housing_type=:housing_type,
+                                        floor_number=:floor_number, external_hub_number=:external_hub_number,
+                                        cable_meters=:cable_meters, instalation_belongs_to_suscriptor=:instalation_belongs_to_suscriptor,
+                                        tvs_number=:tvs_number
+                                         WHERE id = :id");
+                $stmt->bindParam(':id', $id);
+                $stmt->bindParam(':id_suscriptor', $idSuscriptor);
+                $stmt->bindParam(':location', $location);
+                $stmt->bindParam(':code', $code);
+                $stmt->bindParam(':type', $type);
+                $stmt->bindParam(':instalation_date', $instalationDate);
+                $stmt->bindParam(':other_services', $otherServices);
+                $stmt->bindParam(':state', $state);
+                $stmt->bindParam(':housing_type', $housingType);
+                $stmt->bindParam(':floor_number', $floorNumber);
+                $stmt->bindParam(':external_hub_number', $externalHubNumber);
+                $stmt->bindParam(':cable_meters', $cableMeters);
+                $stmt->bindParam(':instalation_belongs_to_suscriptor', $instalationBelongsSuscriptor);
+                $stmt->bindParam(':tvs_number', $tvsNumber);
+                $dbh->beginTransaction();
+                $stmt->execute();
+                $dbh->commit();
+                echo 'Successfull';
+            } catch (Exception $e) {
+                $dbh->rollBack();
+                echo "Failed: " . $e->getMessage();
+            }
+        }
+    }
+
+    class Reporte{
+        function init() {
+            try {
+                $dbh = new PDO('sqlite:reporteAverias.db');
+                return $dbh;
+            } catch (Exception $e) {
+                die("Unable to connect: " . $e->getMessage());
+            }
+        }
+        function get($id=null) {
+            $dbh = $this->init();
+            try {
+                if ($id!=null) {
+                    //$stmt = $dbh->prepare("SELECT * FROM productos WHERE id_factura = :id");
+                    $stmt = $dbh->prepare("SELECT * FROM Reportes WHERE id = :id");
+                    $stmt->bindParam(':id', $id, PDO::PARAM_STR);
+                } else {
+                    $stmt = $dbh->prepare("SELECT * FROM Reportes");
+                }
+                $stmt->execute();
+                $data = Array();
+                while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                    $data[] = $result;
+                }
+                echo json_encode($data);
+            } catch (Exception $e) {
+                echo "Failed: " . $e->getMessage();
+            }
+        }
+        function put($id=null) {
+            $dbh = $this->init();
+            try {
+                $_PUT=json_decode(file_get_contents('php://input'), True);
+                $idSuscriptor = $_PUT['id_suscriptor'];
+                $idServicio = $_PUT['id_servicio'];
+                $date = $_PUT['date'];
+                $type = $_PUT['type'];
+                $description = $_PUT['description'];
+                $state = $_PUT['state'];
+                $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $stmt = $dbh->prepare("INSERT INTO Reportes (id_suscriptor,id_servicio,date,type,description,state)
+                                                VALUES (:id_suscriptor,:id_servicio,:date,:type,:description,:state)");
+                $stmt->bindParam(':id_suscriptor', $idSuscriptor);
+                $stmt->bindParam(':id_servicio', $idServicio);
+                $stmt->bindParam(':date', $date);
+                $stmt->bindParam(':type', $type);
+                $stmt->bindParam(':description', $description);
+                $stmt->bindParam(':state', $state);
+
+                $dbh->beginTransaction();
+                $stmt->execute();
+                $dbh->commit();
+                echo $stmt->insert_id;
+            } catch (Exception $e) {
+                $dbh->rollBack();
+                echo "Failed: " . $e->getMessage();
+            }
+        }
+        function delete($id=null) {
+            $dbh = $this->init();
+            try {
+                $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $stmt = $dbh->prepare("DELETE FROM Reportes id = :id");
+                $stmt->bindParam(':id', $id);
+                $dbh->beginTransaction();
+                $stmt->execute();
+                $dbh->commit();
+                echo 'Successfull';
+            } catch (Exception $e) {
+                $dbh->rollBack();
+                echo "Failed: " . $e->getMessage();
+            }
+        }
+        function deleteByServicio($id=null) {
+            $dbh = $this->init();
+            try {
+                $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $stmt = $dbh->prepare("DELETE FROM Reportes id_servicio = :id_servicio");
+                $stmt->bindParam(':id_servicio', $id);
+                $dbh->beginTransaction();
+                $stmt->execute();
+                $dbh->commit();
+                echo 'Successfull';
+            } catch (Exception $e) {
+                $dbh->rollBack();
+                echo "Failed: " . $e->getMessage();
+            }
+        }
+        function deleteBySuscriptor($id=null) {
+            $dbh = $this->init();
+            try {
+                $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $stmt = $dbh->prepare("DELETE FROM Reportes id_suscriptor = :id_suscriptor");
+                $stmt->bindParam(':id_suscriptor', $id);
+                $dbh->beginTransaction();
+                $stmt->execute();
+                $dbh->commit();
+                echo 'Successfull';
+            } catch (Exception $e) {
+                $dbh->rollBack();
+                echo "Failed: " . $e->getMessage();
+            }
+        }
+        function post($id=null) {
+            $dbh = $this->init();
+            try {
+                $_POST=json_decode(file_get_contents('php://input'), True);
+                if ($_POST['method']=='put')
+                    return $this->put($id);
+                else if ($_POST['method']=='delete')
+                    return $this->delete($id);
+                else if ($_POST['method']=='deleteByServicio')
+                    return $this->deleteByServicio($id);
+                else if ($_POST['method']=='deleteBySuscriptor')
+                    return $this->deleteBySuscriptor($id);
+                $id = $_POST['id'];
+                $idSuscriptor = $_PUT['id_suscriptor'];
+                $idServicio = $_PUT['id_servicio'];
+                $date = $_PUT['date'];
+                $type = $_PUT['type'];
+                $description = $_PUT['description'];
+                $state = $_PUT['state'];
+                $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $stmt = $dbh->prepare("UPDATE Reportes SET id_suscriptor=:id_suscriptor,
+                                        id_servicio=:id_servicio, date=:date, 
+                                        type=:type, description=:description,
+                                        state=:state WHERE id = :id");
+                $stmt->bindParam(':id', $id);
+                $stmt->bindParam(':id_suscriptor', $idSuscriptor);
+                $stmt->bindParam(':id_servicio', $idServicio);
+                $stmt->bindParam(':date', $date);
+                $stmt->bindParam(':type', $type);
+                $stmt->bindParam(':description', $description);
+                $stmt->bindParam(':state', $state);
+                $dbh->beginTransaction();
+                $stmt->execute();
+                $dbh->commit();
+                echo 'Successfull';
+            } catch (Exception $e) {
+                $dbh->rollBack();
+                echo "Failed: " . $e->getMessage();
+            }
+        }
+    }
+
     class User{
         function init() {
             try {
@@ -521,6 +831,10 @@
         }
     }
     Toro::serve(array(
+        "/Reporte" => "Reporte",
+        "/Reporte/:alpha" => "Reporte",
+        "/Servicio" => "Servicio",
+        "/Servicio/:alpha" => "Servicio",
         "/Region" => "Region",
         "/Region/:alpha" => "Region",
         "/Cuadra" => "Cuadra",

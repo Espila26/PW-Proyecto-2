@@ -20,7 +20,7 @@ class ListaCuadra extends React.Component {
                     <td>{cuadra.description}</td></tr>);
         return (
             <Table striped>
-              <thead><tr style={{background: "#60c7c1", color:"white"}}><th>Id</th><th>Region</th><th>Code</th><th>Description</th></tr></thead>
+              <thead><tr style={{background: "#343a40", color:"white"}}><th>Id</th><th>Region</th><th>Code</th><th>Description</th></tr></thead>
               <tbody>
                 {rows}
               </tbody>

@@ -7,11 +7,11 @@ class ListaReportes extends React.Component {
     }
     handleDetails(e) {
         const index = e.currentTarget.getAttribute('data-item');
-        this.props.handleReset();
+        //this.props.handleReset();
         this.props.handleChangeReportes(this.props.reportes[index]);
     }
     render() {
-      if (this.props.cuadras.length > 0) {
+      if (this.props.reportes.length > 0) {
         const rows = this.props.reportes.map((reporte,index) =>
                     <tr key={index} data-item={index} onClick={this.handleDetails}>
                     <td>{reporte.id}</td>
@@ -23,7 +23,7 @@ class ListaReportes extends React.Component {
                     <td>{reporte.state}</td></tr>);
         return (
             <Table striped>
-              <thead><tr style={{background: "#60c7c1", color:"white"}}><th>Id</th><th>Suscriptor</th><th>Servicio</th><th>Date</th><th>Type</th><th>Decription</th><th>Estados</th></tr></thead>
+              <thead><tr style={{background: "#343a40", color:"white"}}><th>Id</th><th>Suscriptor</th><th>Servicio</th><th>Date</th><th>Type</th><th>Decription</th><th>Estados</th></tr></thead>
               <tbody>
                 {rows}
               </tbody>

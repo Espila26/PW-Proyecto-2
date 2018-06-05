@@ -29,28 +29,28 @@ class Menu extends React.Component {
   render() {
     return (
       <div>
-        <Navbar color="light" light expand="md">
-          <NavbarBrand name='sucursales' onClick={this.change}>Reporte de Averias</NavbarBrand>
+        <Navbar color="dark" light expand="md">
+          <NavbarBrand name='sucursales' onClick={this.change} style={{color:"white"}}>Reporte de Averias</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink name='sucursales' onClick={this.change}>Sucursales</NavLink>
+                <NavLink name='sucursales' onClick={this.change} style={{color:"white"}}>Sucursales</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink name='regiones' onClick={this.change}>Regiones</NavLink>
+                <NavLink name='regiones' onClick={this.change} style={{color:"white"}}>Regiones</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink name='cuadras' onClick={this.change}>Cuadras</NavLink>
+                <NavLink name='cuadras' onClick={this.change} style={{color:"white"}}>Cuadras</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink name='suscriptores' onClick={this.change}>Suscriptores</NavLink>
+                <NavLink name='suscriptores' onClick={this.change} style={{color:"white"}}>Suscriptores</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink name='servicios' onClick={this.change}>Servicios</NavLink>
+                <NavLink name='servicios' onClick={this.change} style={{color:"white"}}>Servicios</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink name='reportes' onClick={this.change}>Reportes</NavLink>
+                <NavLink name='reportes' onClick={this.change} style={{color:"white"}}>Reportes</NavLink>
               </NavItem>
             </Nav>
           </Collapse>

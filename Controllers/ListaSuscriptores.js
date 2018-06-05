@@ -21,7 +21,7 @@ class ListaSuscriptores extends React.Component {
                     <td>{suscriptor.id_suscriptor}</td></tr>);
         return (
             <Table striped>
-              <thead><tr style={{background: "#60c7c1", color:"white"}}><th>Id</th><th>Name</th><th>Phone</th><th>Address</th><th>Id-Suscriptor</th></tr></thead>
+              <thead><tr style={{background: "#343a40", color:"white"}}><th>Id</th><th>Name</th><th>Phone</th><th>Address</th><th>Id-Suscriptor</th></tr></thead>
               <tbody>
                 {rows}
               </tbody>

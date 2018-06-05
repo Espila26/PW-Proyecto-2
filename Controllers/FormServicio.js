@@ -23,7 +23,7 @@ class FormServicio extends React.Component {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
                 method: 'put',
-                id_suscriptor: this.props.id_suscriptor,
+                id_suscriptor: this.props.id_suscriptor_servicio,
                 location: this.props.location,
                 code: this.props.code_serv,
                 type: this.props.type_serv,
@@ -33,11 +33,11 @@ class FormServicio extends React.Component {
                 housing_type: this.props.housing_type,
                 floor_number: this.props.floor_number,
                 external_hub_number: this.props.external_hub_number,
-                cable_number: this.props.cable_number,
+                cable_meters: this.props.cable_number,
                 instalation_belongs_to_suscriptor: this.props.instalation_belongs_to_suscriptor,
                 tvs_number: this.props.tvs_number})
     }).then((response) => {
-           this.props.handleChangeData();
+           this.props.handleChangeDataServicio();
          }
     );
     }
@@ -58,11 +58,11 @@ class FormServicio extends React.Component {
                 housing_type: this.props.housing_type,
                 floor_number: this.props.floor_number,
                 external_hub_number: this.props.external_hub_number,
-                cable_number: this.props.cable_number,
+                cable_meters: this.props.cable_number,
                 instalation_belongs_to_suscriptor: this.props.instalation_belongs_to_suscriptor,
                 tvs_number: this.props.tvs_number})
      }).then((response) => {
-           this.props.handleChangeData();
+           this.props.handleChangeDataServicio();
          }
     );
     }
@@ -73,7 +73,7 @@ class FormServicio extends React.Component {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ method: 'delete'})
         }).then((response) => {
-           this.props.handleChangeData();
+           this.props.handleChangeDataServicio();
          }
     );
     }
@@ -84,9 +84,9 @@ class FormServicio extends React.Component {
         return(<form><Table><tbody>
            <tr><td width="30%"><Label>Suscriptor:</Label></td>
                <td width="20%">
-               <select onChange={this.props.handleFields} name='id_suscriptor_servicio'>
+               <Input type="select" onChange={this.props.handleFields} name='id_suscriptor_servicio'>
                         {optionItems}
-                </select>
+                </Input>
                </td></tr>
            <tr><td><Label>Location:</Label></td>
                <td><Input type="text" name="location"
@@ -119,7 +119,7 @@ class FormServicio extends React.Component {
                <td><Input type="number" name="cable_number"
                    value={this.props.cable_number} onChange={this.props.handleFields}/></td></tr>
             <tr><td><Label>Instalation Belongs To Suscriptor:</Label></td>
-               <td><Input type="number" name="external_hub_number"
+               <td><Input type="number" name="instalation_belongs_to_suscriptor"
                    value={this.props.instalation_belongs_to_suscriptor} onChange={this.props.handleFields}/></td></tr>
             <tr><td><Label>TVS Number:</Label></td>
                <td><Input type="number" name="tvs_number"

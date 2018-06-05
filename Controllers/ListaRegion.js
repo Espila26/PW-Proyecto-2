@@ -20,7 +20,7 @@ class ListaRegion extends React.Component {
                     <td>{region.region_manager}</td></tr>);
         return (
             <Table striped>
-              <thead><tr style={{background: "#60c7c1", color:"white"}}><th>Id</th><th>Sucursal</th><th>Code</th><th>Name</th><th>Region Manager</th></tr></thead>
+              <thead><tr style={{background: "#343a40", color:"white"}}><th>Id</th><th>Sucursal</th><th>Code</th><th>Name</th><th>Region Manager</th></tr></thead>
               <tbody>
                 {rows}
               </tbody>

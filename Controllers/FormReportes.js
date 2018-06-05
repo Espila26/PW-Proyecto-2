@@ -5,7 +5,7 @@ const Label = Reactstrap.Label;
 const Input = Reactstrap.Input;
 const FormText = Reactstrap.FormText;
 
-class FormReporte extends React.Component {
+class FormReportes extends React.Component {
     constructor(props) {
        super(props)
         this.handleInsert = this.handleInsert.bind(this);
@@ -30,7 +30,7 @@ class FormReporte extends React.Component {
                 description: this.props.description,
                 state:this.props.state})
     }).then((response) => {
-           this.props.handleChangeData();
+           this.props.handleChangeDataReporte();
          }
     );
     }
@@ -48,7 +48,7 @@ class FormReporte extends React.Component {
                 description: this.props.description,
                 state:this.props.state})
      }).then((response) => {
-           this.props.handleChangeData();
+           this.props.handleChangeDataReporte();
          }
     );
     }
@@ -59,15 +59,15 @@ class FormReporte extends React.Component {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ method: 'delete'})
         }).then((response) => {
-           this.props.handleChangeData();
+           this.props.handleChangeDataReporte();
          }
     );
     }
 
     render() {
-        let suscriptor = this.props.suscriptores;
+        let suscriptores = this.props.suscriptores;
         let optionItems = suscriptores.map((suscriptor) => <option key = {suscriptor.id}>{suscriptor.id}</option>);
-        let servicio = this.props.servicios;
+        let servicios = this.props.servicios;
         let optionItems2 = servicios.map((servicio) => <option key = {servicio.id}>{servicio.id}</option>);
         return(<form><Table><tbody>
            <tr><td width="30%"><Label>Suscriptor:</Label></td>

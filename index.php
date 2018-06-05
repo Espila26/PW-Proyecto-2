@@ -13,8 +13,6 @@
     <script type="text/babel" src="Controllers/FormSuscriptores.js"></script>
     <script type="text/babel" src="Controllers/ListaServicio.js"></script>
     <script type="text/babel" src="Controllers/FormServicio.js"></script>
-    <script type="text/babel" src="Controllers/ListaReporte.js"></script>
-    <script type="text/babel" src="Controllers/FormReporte.js"></script>
     <script type="text/babel" src="Controllers/ListaCuadra.js"></script>
     <script type="text/babel" src="Controllers/FormCuadra.js"></script>
     <script type="text/babel" src="Controllers/ListaRegion.js"></script>

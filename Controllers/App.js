@@ -29,6 +29,8 @@ class App extends React.Component {
         this.handleChangeRegion = this.handleChangeRegion.bind(this);
         this.handleChangeCuadra = this.handleChangeCuadra.bind(this);
         this.handleChangeSuscriptor = this.handleChangeSuscriptor.bind(this);
+        this.handleChangeServicio = this.handleChangeServicio.bind(this);
+        this.handleChangeReporte = this.handleChangeReporte.bind(this);
         this.changeView = this.changeView.bind(this); 
         this.login = this.login.bind(this);
     }
@@ -151,10 +153,10 @@ class App extends React.Component {
     }
 
     handleChangeServicio(servicio){
-      this.setState({id_servicio: servicio.id, id_suscriptor_servicio: servicio.id_suscriptor, location: servicio.location, code:servicio.code_serv, type:servicio.type_serv, 
-      instalation_date:servicio.instalation_date, other_services:services.other_services, state: services.state_serv, housing_type:services.housing_type,
-      floor_number:servicio.floor_number, external_hub_number:services.external_hub_number, cable_number: services.cable_number,
-      instalation_belongs_to_suscriptor: servicio.instalation_belongs_to_suscriptor, tvs_number: services.tvs_number});
+      this.setState({id_servicio: servicio.id, id_suscriptor_servicio: servicio.id_suscriptor, location: servicio.location, code_serv:servicio.code, type_serv:servicio.type, 
+      instalation_date:servicio.instalation_date, other_services:servicio.other_services, state_serv: servicio.state, housing_type:servicio.housing_type,
+      floor_number:servicio.floor_number, external_hub_number:servicio.external_hub_number, cable_number: servicio.cable_meters,
+      instalation_belongs_to_suscriptor: servicio.instalation_belongs_to_suscriptor, tvs_number: servicio.tvs_number});
     }
 
     handleChangeReporte(reporte){
@@ -187,7 +189,7 @@ class App extends React.Component {
               <div>
                 <Menu currentPage={this.state.currentPage} changeView={this.changeView}/> 
                 {((this.state.currentPage==='regiones') &&
-                  <div><Table><tr width="100%">
+                  <div align="center"><h1>Regiones</h1><Table><tr width="100%">
                   <td width="50%"><FormRegion handleFields={this.handleFields} id_region={this.state.id_region} 
                   id_sucursal_reg={this.state.id_sucursal_reg} code={this.state.code} name ={this.state.name} region_manager={this.state.region_manager}  
                   regiones={this.state.regiones} sucursales={this.state.sucursales} handleChangeDataRegion =  {this.handleChangeDataRegion}/></td>
@@ -196,7 +198,7 @@ class App extends React.Component {
                 )
 
                 ||((this.state.currentPage==='sucursales') &&
-                <div><Table><tr width="100%">
+                <div align="center"><h1>Sucursales</h1><Table><tr width="100%">
                     <td width="50%"><FormSucursal handleFields={this.handleFields} id_sucursal={this.state.id_sucursal} 
                     manager_name={this.state.manager_name} phone={this.state.phone} city={this.state.city} address={this.state.address} 
                     sucursales={this.state.sucursales} handleChangeData =  {this.handleChangeData}/></td>
@@ -205,7 +207,7 @@ class App extends React.Component {
               )
 
               ||((this.state.currentPage==='cuadras') &&
-                <div><Table><tr width="100%">
+                <div align="center"><h1>Cuadras</h1><Table><tr width="100%">
                     <td width="50%"><FormCuadra handleFields={this.handleFields} cuadras={this.state.cuadras} id_cuadra={this.state.id_cuadra} id_region_cuadra={this.state.id_region_cuadra}
                                                 code_cuadra={this.state.code_cuadra} description={this.state.description} handleChangeDataCuadra =  {this.handleChangeDataCuadra} regiones={this.state.regiones}/></td>
                 <td width="50%"><ListaCuadra cuadras={this.state.cuadras} handleChangeCuadra =  {this.handleChangeCuadra}/></td>
@@ -213,7 +215,7 @@ class App extends React.Component {
               )
 
               ||((this.state.currentPage==='suscriptores') &&
-              <div><Table><tr width="100%">
+              <div align="center"><h1>Suscriptores</h1><Table><tr width="100%">
                   <td width="50%"><FormSuscriptores handleFields={this.handleFields} suscriptores={this.state.suscriptores} id_suscriptor={this.state.id_suscriptor} name={this.state.name} 
                                   phone_susc={this.state.phone_susc} address_susc={this.state.address_susc} cedula={this.state.cedula} handleChangeDataSuscriptores =  {this.handleChangeDataSuscriptores} regiones={this.state.regiones}/></td>
               <td width="50%"><ListaSuscriptores suscriptores={this.state.suscriptores} handleChangeSuscriptor =  {this.handleChangeSuscriptor}/></td>
@@ -221,8 +223,8 @@ class App extends React.Component {
             )
 
             ||((this.state.currentPage==='servicios') &&
-            <div><Table><tr width="100%">
-                <td width="50%"><FormServicio handleFields={this.handleFields} servicios={this.state.servicios} id_servicio={this.state.id_servicio}
+            <div align="center"><h1>Servicios</h1><Table><tr width="100%">
+                <td width="50%"><FormServicio handleFields={this.handleFields} suscriptores={this.state.suscriptores} servicios={this.state.servicios} id_servicio={this.state.id_servicio}
                  id_suscriptor_servicio={this.state.id_suscriptor_servicio} location={this.state.location} code_serv={this.state.code_serv} type_serv={this.state.type_serv} 
                  instalation_date={this.state.instalation_date} other_services={this.state.other_services} state_serv={this.state.state_serv} housing_type={this.state.housing_type}  
                  floor_number={this.state.floor_number} external_hub_number={this.state.external_hub_number} cable_number={this.state.cable_number} 
@@ -232,8 +234,8 @@ class App extends React.Component {
           )
 
           ||((this.state.currentPage==='reportes') &&
-          <div><Table><tr width="100%">
-              <td width="50%"><FormReportes handleFields={this.handleFields} servicios={this.state.servicios} id_servicio={this.state.id_servicio}
+          <div align="center"><h1>Reportes</h1><Table><tr width="100%">
+              <td width="50%"><FormReportes handleFields={this.handleFields} id_servicio={this.state.id_servicio}
                id_suscriptor_servicio={this.state.id_suscriptor_servicio} reportes={this.state.reportes} id_reporte={this.state.id_reporte} id_suscriptor_rep={this.state.id_suscriptor_rep} 
                id_servicio_rep={this.id_servicio_rep} date={this.state.date} type={this.state.type} description_rep={this.state.description_rep} 
                servicios={this.state.servicios} suscriptores={this.state.suscriptores} handleChangeDataReporte =  {this.handleChangeDataReporte}/></td>
