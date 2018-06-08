@@ -1,5 +1,7 @@
 const Table = Reactstrap.Table;
 const Progress = Reactstrap.Progress;
+var ColumnChart = ReactChartkick.ColumnChart;
+var PieChart = ReactChartkick.PieChart;
 
 class App extends React.Component {
     constructor(props) {
@@ -11,7 +13,7 @@ class App extends React.Component {
         reportes: [],id_reporte:0, id_suscriptor_rep:0, id_servicio_rep:0, date:'', type:'', description_rep:'',
         suscriptores:[], id_suscriptor:0, name:'', phone_susc:0, address_susc:'', cedula: '', 
         servicios:[], id_servicio:0, id_suscriptor_servicio:0, location:'', code_serv:'', type_serv:'', instalation_date: '', other_services: '', state_serv:'', housing_type:'',  floor_number:0, external_hub_number:'', cable_number:'',instalation_belongs_to_suscriptor: '', tvs_number:'',
-        currentPage: 'login'};
+        currentPage: 'login', data:[]};
         this.handleFields = this.handleFields.bind(this);
         this.handleChangeData = this.handleChangeData.bind(this);
         this.handleChangeDataRegion = this.handleChangeDataRegion.bind(this);
@@ -38,6 +40,11 @@ class App extends React.Component {
     handleFields(event) {
       const propiedad = event.currentTarget.getAttribute('name');
       this.setState({[propiedad]: event.target.value});
+    }
+
+    setChartData() {
+      const data = this.state.servicios.map((servicio,index) => [servicio.id,servicio.instalation_date]);
+      this.setState({ data: data });
     }
 
     handleChangeData() {
@@ -125,6 +132,7 @@ class App extends React.Component {
         })
         .then((data) => {
             this.setState({ servicios: data});
+            this.setChartData();
             this.forceUpdate();
         })
     }
@@ -243,8 +251,10 @@ class App extends React.Component {
           </tr></Table></div> 
         )
 
-        ||((this.state.currentPage==='analisis') &&
+        ||((this.state.currentPage==='grafico') &&
         <div align="center"><h1>Analisis Grafico</h1>
+        <ColumnChart data={this.state.data}/>
+        <PieChart data={this.state.data} onClick={this.handleClick}/>
            </div> 
       )
               }

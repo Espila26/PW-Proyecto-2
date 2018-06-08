@@ -25,6 +25,8 @@
     <script type="text/babel" src="Controllers/SignIn.js"></script>
     <script type="text/babel" src="Controllers/Menu.js"></script>
     <script type="text/babel" src="Controllers/App.js"></script>
+    <script src="Chart.bundle.min.js"></script>
+    <script src="react-chartkick.js"></script>
   </head>
   <body>
     <div id="root"></div>
