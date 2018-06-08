@@ -242,6 +242,11 @@ class App extends React.Component {
           <td width="50%"><ListaReportes reportes={this.state.reportes} handleChangeReporte =  {this.handleChangeReporte}/></td>
           </tr></Table></div> 
         )
+
+        ||((this.state.currentPage==='analisis') &&
+        <div align="center"><h1>Analisis Grafico</h1>
+           </div> 
+      )
               }
             </div>
             }

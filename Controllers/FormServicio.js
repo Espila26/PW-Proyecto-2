@@ -98,7 +98,7 @@ class FormServicio extends React.Component {
                <td><Input type="text" name="type_serv"
                    value={this.props.type_serv} onChange={this.props.handleFields}/></td></tr>
             <tr><td><Label>Instalation Date:</Label></td>
-               <td><Input type="text" name="instalation_date"
+               <td><Input type="date" name="instalation_date"
                    value={this.props.instalation_date} onChange={this.props.handleFields}/></td></tr>
             <tr><td><Label>Other Description:</Label></td>
                <td><Input type="text" name="other_services"
