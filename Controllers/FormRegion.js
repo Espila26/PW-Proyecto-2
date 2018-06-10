@@ -18,6 +18,10 @@ class FormRegion extends React.Component {
     }
 
     handleInsert() {
+        if(!this.props.id_sucursal_reg){
+            this.props.createError('Debe de ingresar una sucursal!');
+            return;
+        }
         fetch("datos.php/Region/"+this.props.id_region,{
             method: "put",
             headers: {'Content-Type': 'application/json'},
@@ -27,19 +31,16 @@ class FormRegion extends React.Component {
                 name: this.props.name,
                 region_manager: this.props.region_manager})
     }).then((response) => {
-           this.props.handleChangeDataRegion();
+           this.props.handleReloadRegion();
          }
     );
     }
     
     handleUpdate() {
-        /*lert(JSON.stringify({
-            id: this.props.id_region, 
-            id_sucursal: this.props.id_sucursal_reg,
-            code: this.props.code,
-            name: this.props.name,
-            region_manager: this.props.region_manager
-        }));*/
+        if(!this.props.id_sucursal_reg){
+            this.props.createError('Debe de ingresar una sucursal!');
+            return;
+        }
         fetch("datos.php/Region/"+this.props.id_region,{
             method: "post",
             headers: {'Content-Type': 'application/json'},
@@ -50,8 +51,7 @@ class FormRegion extends React.Component {
                 name: this.props.name,
                 region_manager: this.props.region_manager})
      }).then((response) => {
-        alert(response.ok);
-           this.props.handleChangeDataRegion();
+           this.props.handleReloadRegion();
          }
     );
     }
@@ -62,7 +62,7 @@ class FormRegion extends React.Component {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ method: 'delete'})
         }).then((response) => {
-           this.props.handleChangeDataRegion();
+           this.props.handleReloadRegion();
          }
     );
     }
@@ -73,17 +73,18 @@ class FormRegion extends React.Component {
         return(<form><Table><tbody>
            <tr><td width="30%"><Label>Sucursal:</Label></td>
                <td width="20%">
-                    <Input type="select" onChange={this.props.handleFields} name='id_sucursal_reg'>
+                    <Input type="select" onChange={this.props.handleFields} name='id_sucursal_reg' value={this.props.id_sucursal_reg}>
+                       <option></option>
                         {optionItems}
                     </Input>
                </td></tr>
-           <tr><td><Label>Code:</Label></td>
+           <tr><td><Label>Codigo:</Label></td>
                <td><Input type="number" name="code"
                    value={this.props.code} onChange={this.props.handleFields}/></td></tr>
-           <tr><td><Label>Name:</Label></td>
+           <tr><td><Label>Nombre:</Label></td>
                <td><Input type="text" name="name"
                    value={this.props.name} onChange={this.props.handleFields}/></td></tr>
-           <tr><td><Label>Region Manager:</Label></td>
+           <tr><td><Label>Nombre del Encargado:</Label></td>
                <td><Input type="text" name="region_manager"
                    value={this.props.region_manager} onChange={this.props.handleFields}/></td></tr>
            </tbody></Table><input type="hidden" name="id" value={this.props.id_region}/>

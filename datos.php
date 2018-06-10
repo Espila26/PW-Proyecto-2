@@ -665,7 +665,7 @@
             $dbh = $this->init();
             try {
                 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $stmt = $dbh->prepare("DELETE FROM Reportes id = :id");
+                $stmt = $dbh->prepare("DELETE FROM Reportes WHERE id = :id");
                 $stmt->bindParam(':id', $id);
                 $dbh->beginTransaction();
                 $stmt->execute();
@@ -680,7 +680,7 @@
             $dbh = $this->init();
             try {
                 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $stmt = $dbh->prepare("DELETE FROM Reportes id_servicio = :id_servicio");
+                $stmt = $dbh->prepare("DELETE FROM Reportes WHERE id_servicio = :id_servicio");
                 $stmt->bindParam(':id_servicio', $id);
                 $dbh->beginTransaction();
                 $stmt->execute();
@@ -695,7 +695,7 @@
             $dbh = $this->init();
             try {
                 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                $stmt = $dbh->prepare("DELETE FROM Reportes id_suscriptor = :id_suscriptor");
+                $stmt = $dbh->prepare("DELETE FROM Reportes WHERE id_suscriptor = :id_suscriptor");
                 $stmt->bindParam(':id_suscriptor', $id);
                 $dbh->beginTransaction();
                 $stmt->execute();
@@ -719,12 +719,12 @@
                 else if ($_POST['method']=='deleteBySuscriptor')
                     return $this->deleteBySuscriptor($id);
                 $id = $_POST['id'];
-                $idSuscriptor = $_PUT['id_suscriptor'];
-                $idServicio = $_PUT['id_servicio'];
-                $date = $_PUT['date'];
-                $type = $_PUT['type'];
-                $description = $_PUT['description'];
-                $state = $_PUT['state'];
+                $idSuscriptor = $_POST['id_suscriptor'];
+                $idServicio = $_POST['id_servicio'];
+                $date = $_POST['date'];
+                $type = $_POST['type'];
+                $description = $_POST['description'];
+                $state = $_POST['state'];
                 $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $stmt = $dbh->prepare("UPDATE Reportes SET id_suscriptor=:id_suscriptor,
                                         id_servicio=:id_servicio, date=:date, 

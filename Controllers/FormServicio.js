@@ -18,6 +18,10 @@ class FormServicio extends React.Component {
     }
 
     handleInsert() {
+        if(!this.props.id_suscriptor_servicio || !this.props.location){
+            this.props.createError('Direccion y suscriptor son campos mandatorios!');
+            return;
+        }
         fetch("datos.php/Servicio/"+this.props.id_servicio,{
             method: "put",
             headers: {'Content-Type': 'application/json'},
@@ -43,6 +47,10 @@ class FormServicio extends React.Component {
     }
     
     handleUpdate() {
+        if(!this.props.id_suscriptor_servicio || !this.props.location){
+            this.props.createError('Direccion y suscriptor son campos mandatorios!');
+            return;
+        }
         fetch("datos.php/Servicio/"+this.props.id_servicio,{
             method: "post",
             headers: {'Content-Type': 'application/json'},
@@ -79,37 +87,69 @@ class FormServicio extends React.Component {
     }
 
     render() {
+        let cuadras = this.props.regiones;
+        let optionCuadras = this.props.cuadras.map((cuadra) => <option key = {cuadra.id}>{cuadra.id}</option>);
         let suscriptores = this.props.suscriptores;
         let optionItems = suscriptores.map((suscriptor) => <option key = {suscriptor.id}>{suscriptor.id}</option>);
         return(<form><Table><tbody>
            <tr><td width="30%"><Label>Suscriptor:</Label></td>
                <td width="20%">
-               <Input type="select" onChange={this.props.handleFields} name='id_suscriptor_servicio'>
+               <Input type="select" onChange={this.props.handleFields} name='id_suscriptor_servicio' value={this.props.id_suscriptor_servicio}>
+                        <option></option>
                         {optionItems}
                 </Input>
                </td></tr>
-           <tr><td><Label>Location:</Label></td>
-               <td><Input type="text" name="location"
-                   value={this.props.location} onChange={this.props.handleFields}/></td></tr>
-           <tr><td><Label>Code:</Label></td>
+           <tr><td><Label>Direccion:</Label></td>
+               <td><Input type="select" name="location"
+                   value={this.props.location} onChange={this.props.handleFields}>
+                   <option></option>
+                   {optionCuadras}
+                    </Input>   
+                </td></tr>
+           <tr><td><Label>Codigo:</Label></td>
                <td><Input type="number" name="code_serv"
                    value={this.props.code_serv} onChange={this.props.handleFields}/></td></tr>
-            <tr><td><Label>Type:</Label></td>
-               <td><Input type="text" name="type_serv"
-                   value={this.props.type_serv} onChange={this.props.handleFields}/></td></tr>
-            <tr><td><Label>Instalation Date:</Label></td>
+            <tr><td><Label>Tipo:</Label></td>
+               <td>
+               <Input type="select" name="type_serv"
+                   value={this.props.type_serv} onChange={this.props.handleFields}>
+                   <option></option>  
+                   <option key = "Reducido">Reducido</option>  
+                   <option key = "Basico">Basico</option>
+                   <option key = "Premium">Premium</option>
+                </Input></td></tr>
+            <tr><td><Label>Fecha:</Label></td>
                <td><Input type="date" name="instalation_date"
                    value={this.props.instalation_date} onChange={this.props.handleFields}/></td></tr>
-            <tr><td><Label>Other Description:</Label></td>
-               <td><Input type="text" name="other_services"
-                   value={this.props.other_services} onChange={this.props.handleFields}/></td></tr>
-            <tr><td><Label>State:</Label></td>
-               <td><Input type="text" name="state_serv"
-                   value={this.props.state_serv} onChange={this.props.handleFields}/></td></tr>
-            <tr><td><Label>Housing Type:</Label></td>
-               <td><Input type="text" name="housing_type"
-                   value={this.props.housing_type} onChange={this.props.handleFields}/></td></tr>
-            <tr><td><Label>Floor Number:</Label></td>
+            <tr><td><Label>Otro Servicio:</Label></td>
+               <td><Input type="select" name="other_services"
+                   value={this.props.other_services} onChange={this.props.handleFields}>
+                   <option></option>  
+                   <option key = "Cable Digital">Cable Digital</option>  
+                   <option key = "Internet">Internet</option>
+                   <option key = "Red privada de datos">Red privada de datos</option>
+                   </Input>
+                </td></tr>
+            <tr><td><Label>Estado:</Label></td>
+               <td><Input type="select" name="state_serv"
+                   value={this.props.state_serv} onChange={this.props.handleFields}>
+                   <option></option>  
+                   <option key = "Pendiente">Pendiente</option>  
+                   <option key = "Activo">Activo</option>
+                   <option key = "Suspendido">Suspendido</option>
+                    </Input>   
+                </td></tr>
+            <tr><td><Label>Tipo de vivienda:</Label></td>
+               <td><Input type="select" name="housing_type"
+                   value={this.props.housing_type} onChange={this.props.handleFields}>
+                   <option></option>  
+                   <option key = "Apartamento">Apartamento</option>  
+                   <option key = "Condominio">Condominio</option>
+                   <option key = "Casa independiente">Casa independiente</option>
+                   <option key = "Casa en grupo">Casa en grupo</option>
+                    </Input>   
+                </td></tr>
+            <tr><td><Label>Numero de piso:</Label></td>
                <td><Input type="number" name="floor_number"
                    value={this.props.floor_number} onChange={this.props.handleFields}/></td></tr>
             <tr><td><Label>External Hub Number:</Label></td>
@@ -118,10 +158,15 @@ class FormServicio extends React.Component {
             <tr><td><Label>Cable Number:</Label></td>
                <td><Input type="number" name="cable_number"
                    value={this.props.cable_number} onChange={this.props.handleFields}/></td></tr>
-            <tr><td><Label>Instalation Belongs To Suscriptor:</Label></td>
-               <td><Input type="number" name="instalation_belongs_to_suscriptor"
-                   value={this.props.instalation_belongs_to_suscriptor} onChange={this.props.handleFields}/></td></tr>
-            <tr><td><Label>TVS Number:</Label></td>
+            <tr><td><Label>Instalacion pertenece al suscriptor:</Label></td>
+               <td><Input type="select" name="instalation_belongs_to_suscriptor"
+                   value={this.props.instalation_belongs_to_suscriptor} onChange={this.props.handleFields}>
+                   <option></option>  
+                   <option key = "Si">Si</option>  
+                   <option key = "No">No</option>
+                   </Input>
+                </td></tr>
+            <tr><td><Label>Numbero De TVS:</Label></td>
                <td><Input type="number" name="tvs_number"
                    value={this.props.tvs_number} onChange={this.props.handleFields}/></td></tr>
            </tbody></Table><input type="hidden" name="id" value={this.props.id_servicio}/>

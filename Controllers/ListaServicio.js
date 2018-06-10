@@ -30,14 +30,14 @@ class ListaServicio extends React.Component {
                   <tr style={{background: "#343a40", color:"white"}}>
                     <th>Id</th>
                     <th>Suscriptor</th>
-                    <th>Location</th>
-                    <th>Code</th>
-                    <th>Type</th>
-                    <th>Instalation Date</th>
-                    <th>Other Services</th>
-                    <th>State</th>
+                    <th>Direccion</th>
+                    <th>Codigo</th>
+                    <th>Tipo</th>
+                    <th>Fecha</th>
+                    <th>Otro Servicio</th>
+                    <th>Estado</th>
                     <th>Instalation</th>
-                    <th>TVS Number</th>
+                    <th>Numero de TVS</th>
                   </tr>
                   </thead>
               <tbody>

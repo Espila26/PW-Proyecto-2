@@ -8,7 +8,7 @@ class ListaReportes extends React.Component {
     handleDetails(e) {
         const index = e.currentTarget.getAttribute('data-item');
         //this.props.handleReset();
-        this.props.handleChangeReportes(this.props.reportes[index]);
+        this.props.handleChangeReporte(this.props.reportes[index]);
     }
     render() {
       if (this.props.reportes.length > 0) {
@@ -23,7 +23,7 @@ class ListaReportes extends React.Component {
                     <td>{reporte.state}</td></tr>);
         return (
             <Table striped>
-              <thead><tr style={{background: "#343a40", color:"white"}}><th>Id</th><th>Suscriptor</th><th>Servicio</th><th>Date</th><th>Type</th><th>Decription</th><th>Estados</th></tr></thead>
+              <thead><tr style={{background: "#343a40", color:"white"}}><th>Id</th><th>Suscriptor</th><th>Servicio</th><th>Fecha</th><th>Tipo</th><th>Descripcion</th><th>Estado</th></tr></thead>
               <tbody>
                 {rows}
               </tbody>

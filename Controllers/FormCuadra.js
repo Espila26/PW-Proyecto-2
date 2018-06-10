@@ -18,6 +18,10 @@ class FormCuadra extends React.Component {
     }
 
     handleInsert() {
+        if(!this.props.id_region_cuadra){
+            this.props.createError('Debe de ingresar una region!');
+            return;
+        }
         fetch("datos.php/Cuadra/"+this.props.id_cuadra,{
             method: "put",
             headers: {'Content-Type': 'application/json'},
@@ -27,12 +31,16 @@ class FormCuadra extends React.Component {
                 code: this.props.code_cuadra,
                 description: this.props.description})
     }).then((response) => {
-           this.props.handleChangeDataCuadra();
+           this.props.handleReloadCuadra();
          }
     );
     }
     
     handleUpdate() {
+        if(!this.props.id_region_cuadra){
+            this.props.createError('Debe de ingresar una region!');
+            return;
+        }
         fetch("datos.php/Cuadra/"+this.props.id_cuadra,{
             method: "post",
             headers: {'Content-Type': 'application/json'},
@@ -42,7 +50,7 @@ class FormCuadra extends React.Component {
                 code: this.props.code_cuadra,
                 description: this.props.description})
      }).then((response) => {
-           this.props.handleChangeDataCuadra();
+           this.props.handleReloadCuadra();
          }
     );
     }
@@ -53,7 +61,7 @@ class FormCuadra extends React.Component {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ method: 'delete'})
         }).then((response) => {
-           this.props.handleChangeDataCuadra();
+           this.props.handleReloadCuadra();
          }
     );
     }
@@ -64,14 +72,15 @@ class FormCuadra extends React.Component {
         return(<form><Table><tbody>
            <tr><td width="30%"><Label>Region:</Label></td>
                <td width="20%">
-               <Input type="select" onChange={this.props.handleFields} name='id_region_cuadra'>
+               <Input type="select" onChange={this.props.handleFields} name='id_region_cuadra' value={this.props.id_region_cuadra}>
+                        <option></option>
                         {optionItems}
                 </Input>
                </td></tr>
-           <tr><td><Label>Code:</Label></td>
+           <tr><td><Label>Codigo:</Label></td>
                <td><Input type="number" name="code_cuadra"
                    value={this.props.code_cuadra} onChange={this.props.handleFields}/></td></tr>
-           <tr><td><Label>Description:</Label></td>
+           <tr><td><Label>Descripcion:</Label></td>
                <td><Input type="text" name="description"
                    value={this.props.description} onChange={this.props.handleFields}/></td></tr>
            </tbody></Table><input type="hidden" name="id" value={this.props.id_cuadra}/>

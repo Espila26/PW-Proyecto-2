@@ -62,13 +62,13 @@ class FormSuscriptores extends React.Component {
 
     render() {
         return(<form><Table><tbody>
-           <tr><td width="30%"><Label>Name:</Label></td>
+           <tr><td width="30%"><Label>Nombre:</Label></td>
                <td width="20%"><Input type="text" name="name"
                    value={this.props.name} onChange={this.props.handleFields}/></td></tr>
-           <tr><td><Label>Phone:</Label></td>
+           <tr><td><Label>Telefono:</Label></td>
                <td><Input type="number" name="phone_susc"
                    value={this.props.phone_susc} onChange={this.props.handleFields}/></td></tr>
-           <tr><td><Label>Address:</Label></td>
+           <tr><td><Label>Direccion:</Label></td>
                <td><Input type="text" name="address_susc"
                    value={this.props.address_susc} onChange={this.props.handleFields}/></td></tr>
             <tr><td><Label>Cedula:</Label></td>

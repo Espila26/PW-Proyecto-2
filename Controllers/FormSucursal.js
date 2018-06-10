@@ -28,7 +28,7 @@ class FormSucursal extends React.Component {
                 city: this.props.city,
                 address: this.props.address})
     }).then((response) => {
-           this.props.handleChangeData();
+           this.props.handleReloadSucursal();
          }
     );
     }
@@ -44,7 +44,7 @@ class FormSucursal extends React.Component {
                 city: this.props.city,
                 address: this.props.address})
      }).then((response) => {
-           this.props.handleChangeData();
+           this.props.handleReloadSucursal();
          }
     );
     }
@@ -55,23 +55,23 @@ class FormSucursal extends React.Component {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ method: 'delete'})
         }).then((response) => {
-           this.props.handleChangeData();
+           this.props.handleReloadSucursal();
          }
     );
     }
 
     render() {
         return(<form><Table><tbody>
-           <tr><td width="30%"><Label>Manager Name:</Label></td>
+           <tr><td width="30%"><Label>Encargado:</Label></td>
                <td width="20%"><Input type="text" name="manager_name"
                    value={this.props.manager_name} onChange={this.props.handleFields}/></td></tr>
-           <tr><td><Label>Phone:</Label></td>
+           <tr><td><Label>Telefono:</Label></td>
                <td><Input type="number" name="phone"
                    value={this.props.phone} onChange={this.props.handleFields}/></td></tr>
-           <tr><td><Label>City:</Label></td>
+           <tr><td><Label>Ciudad:</Label></td>
                <td><Input type="text" name="city"
                    value={this.props.city} onChange={this.props.handleFields}/></td></tr>
-           <tr><td><Label>Address:</Label></td>
+           <tr><td><Label>Direccion:</Label></td>
                <td><Input type="text" name="address"
                    value={this.props.address} onChange={this.props.handleFields}/></td></tr>
            </tbody></Table><input type="hidden" name="id" value={this.props.id_sucursal}/>

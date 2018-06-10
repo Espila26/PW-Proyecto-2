@@ -52,9 +52,9 @@ class Menu extends React.Component {
               <NavItem>
                 <NavLink name='reportes' onClick={this.change} style={{color:"white"}}>Reportes</NavLink>
               </NavItem>
-              <NavItem>
+              {/*<NavItem>
                 <NavLink name='grafico' onClick={this.change} style={{color:"white"}}>Analisis Grafico</NavLink>
-            </NavItem>
+              </NavItem>*/}
             </Nav>
           </Collapse>
         </Navbar>

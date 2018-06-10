@@ -21,7 +21,7 @@ class ListaSucursal extends React.Component {
                 <td>{sucursal.address}</td></tr>);
         return (
             <Table striped>
-                <thead><tr style={{background: "#343a40", color:"white"}}><th>Id</th><th>Admin</th><th>Telefono</th>
+                <thead><tr style={{background: "#343a40", color:"white"}}><th>Id</th><th>Encargado</th><th>Telefono</th>
                 <th>Ciudad</th><th>Direccion</th></tr></thead>
                 <tbody>
                 {rows}
