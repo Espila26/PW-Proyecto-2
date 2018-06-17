@@ -15,7 +15,7 @@ class App extends React.Component {
         reportes: [],id_reporte:0, id_suscriptor_rep:0, id_servicio_rep:0, date:'', type:'', description_rep:'',state_rep:'',
         suscriptores:[], id_suscriptor:0, name:'', phone_susc:0, address_susc:'', cedula: '', 
         servicios:[], id_servicio:0, id_suscriptor_servicio:0, location:'', code_serv:'', type_serv:'', instalation_date: '', other_services: '', state_serv:'', housing_type:'',  floor_number:0, external_hub_number:'', cable_number:'',instalation_belongs_to_suscriptor: '', tvs_number:'',
-        currentPage: 'login', data:[], error:''};
+        currentPage: 'login', data:[], error:'', tipoGrafico:''};
         this.handleFields = this.handleFields.bind(this);
         this.handleChangeDataServicio = this.handleChangeDataServicio.bind(this);
         this.handleChangeDataSuscriptores = this.handleChangeDataSuscriptores.bind(this);
@@ -38,6 +38,10 @@ class App extends React.Component {
         this.handleGraphFields = this.handleGraphFields.bind(this);
         this.setChartOtherServices = this.setChartOtherServices.bind(this);
         this.setChartData = this.setChartData.bind(this);
+        this.setChartDataCuadras = this.setChartDataCuadras.bind(this);
+        this.setChartDataRegiones = this.setChartDataRegiones.bind(this);
+        this.setChartDataSucursal = this.setChartDataSucursal.bind(this);
+
     }
 
     handleReset()
@@ -70,6 +74,16 @@ class App extends React.Component {
           this.setChartData();
           break;
         case 'Ubicacion':
+          this.setChartDataCuadras();
+          break;
+        case 'Cuadras':
+          this.setChartDataCuadras();
+          break;
+        case 'Regiones':
+          this.setChartDataRegiones();
+          break;
+        case 'Sucursales':
+          this.setChartDataSucursal();
           break;
         case 'Periodo':
           break;
@@ -77,6 +91,9 @@ class App extends React.Component {
           this.setChartOtherServices();
           break;
       }
+
+      this.setState({tipoGrafico: event.target.value});
+
     }
 
     setChartData() {
@@ -117,6 +134,87 @@ class App extends React.Component {
       const types = [{name:"Cable Digital", cant: cantCable},{name:"Internet",cant:cantInternet},
                      {name:"Red privada de datos", cant: cantRed}];
       const data = types.map((type,index) => [type.name,type.cant]);
+      this.setState({ data: data });
+    }
+
+    setChartDataCuadras(){
+      let temp_cuadras = [];
+      for(let i = 0; i < this.state.cuadras.length; i++){
+        temp_cuadras.push({
+          id: this.state.cuadras[i].id, cant:0
+        });
+      }
+
+      for(let i = 0; i< this.state.servicios.length; i++){
+          const index = temp_cuadras.findIndex(cuadra => cuadra.id == this.state.servicios[i].location);
+          temp_cuadras[index].cant++; 
+          //alert(temp_cuadras[index].cant);
+      }
+
+      const data = temp_cuadras.map((location,index) => [location.id,location.cant]);
+      this.setState({ data: data });
+
+    }
+
+    setChartDataRegiones(){
+      let temp_cuadras = [];
+      let temp_region = [];
+
+      for(let i = 0; i < this.state.cuadras.length; i++){
+        temp_cuadras.push({
+          id: this.state.cuadras[i].id, id_region:this.state.cuadras[i].id_region
+        });
+      }
+
+      for(let i = 0; i < this.state.regiones.length; i++){
+        temp_region.push({
+          id: this.state.regiones[i].id, cant:0
+        });
+      }
+
+      for(let i = 0; i< this.state.servicios.length; i++){
+          const index = temp_cuadras.findIndex(cuadra => cuadra.id == this.state.servicios[i].location);
+          const indexRegion = temp_region.findIndex(region => region.id == temp_cuadras[index].id_region);
+          temp_region[indexRegion].cant++; 
+          //alert(temp_region[indexRegion].cant);
+      }
+
+      const data = temp_region.map((location,index) => [location.id,location.cant]);
+      this.setState({ data: data });
+    }
+
+    setChartDataSucursal(){
+      let temp_cuadras = [];
+      let temp_region = [];
+      let temp_sucursal = [];
+
+      for(let i = 0; i < this.state.cuadras.length; i++){
+        temp_cuadras.push({
+          id: this.state.cuadras[i].id, id_region:this.state.cuadras[i].id_region
+        });
+      }
+
+      for(let i = 0; i < this.state.regiones.length; i++){
+        temp_region.push({
+          id: this.state.regiones[i].id, id_sucursal: this.state.regiones[i].id_sucursal
+        });
+      }
+
+      for(let i = 0; i < this.state.sucursales.length; i++){
+        temp_sucursal.push({
+          id: this.state.sucursales[i].id, cant:0
+        });
+      }
+
+      for(let i = 0; i< this.state.servicios.length; i++){
+          const index = temp_cuadras.findIndex(cuadra => cuadra.id == this.state.servicios[i].location);
+          const indexRegion = temp_region.findIndex(region => region.id == temp_cuadras[index].id_region);
+          const indexSucursal = temp_sucursal.findIndex(sucursal => sucursal.id == temp_region[indexRegion].id_sucursal);
+          temp_sucursal[indexSucursal].cant++; 
+          //alert(temp_sucursal[indexSucursal].cant);
+      }
+
+      const data = temp_sucursal.map((location,index) => [location.id,location.cant]);
       this.setState({ data: data });
     }
 
@@ -318,12 +416,21 @@ class App extends React.Component {
         ||((this.state.currentPage==='grafico') &&
         <div align="center"><h1>Analisis Grafico</h1>
         <Label>Sucursal:</Label>
-        <Input type="select" onChange={this.handleGraphFields} name='type' value={this.props.id_sucursal_reg}>
+        <Input type="select" onChange={this.handleGraphFields} name='tipoGrafico'>
         <option key = "tipo">Tipo</option>
         <option key = "ubicacion">Ubicacion</option>
         <option key = "periodos">Periodos</option>
         <option key = "otros">Otros servicios</option>
         </Input>
+        {
+          (this.state.tipoGrafico == 'Ubicacion' || this.state.tipoGrafico == 'Cuadras' || this.state.tipoGrafico == 'Regiones' || this.state.tipoGrafico == 'Sucursales') && (
+          <Input type="select" onChange={this.handleGraphFields} name='tipoGrafico'>
+            <option key = "cuadras">Cuadras</option>
+            <option key = "regiones">Regiones</option>
+            <option key = "sucursales">Sucursales</option>
+          </Input>
+          )
+        }
         <ColumnChart data={this.state.data}/>
         <PieChart data={this.state.data} onClick={this.handleClick}/>
            </div> 
