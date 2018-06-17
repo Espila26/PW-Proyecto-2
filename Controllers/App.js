@@ -3,6 +3,7 @@ const Progress = Reactstrap.Progress;
 const ColumnChart = ReactChartkick.ColumnChart;
 const PieChart = ReactChartkick.PieChart;
 const Alert = Reactstrap.Alert;
+const Input = Reactstrap.Input;
 
 class App extends React.Component {
     constructor(props) {
@@ -34,6 +35,9 @@ class App extends React.Component {
         this.login = this.login.bind(this);
         this.handleReset = this.handleReset.bind(this);
         this.createError = this.createError.bind(this);
+        this.handleGraphFields = this.handleGraphFields.bind(this);
+        this.setChartOtherServices = this.setChartOtherServices.bind(this);
+        this.setChartData = this.setChartData.bind(this);
     }
 
     handleReset()
@@ -57,7 +61,26 @@ class App extends React.Component {
       this.setState({[propiedad]: event.target.value});
     }
 
+    handleGraphFields(event){
+      const propiedad = event.currentTarget.getAttribute('name');
+      alert(event.target.value);
+     
+      switch(event.target.value){
+        case 'Tipo': 
+          this.setChartData();
+          break;
+        case 'Ubicacion':
+          break;
+        case 'Periodo':
+          break;
+        case 'Otros servicios':
+          this.setChartOtherServices();
+          break;
+      }
+    }
+
     setChartData() {
+      //Get service type count
       let cantReducido = 0;
       let cantBasico = 0;
       let cantPremium = 0;
@@ -66,9 +89,33 @@ class App extends React.Component {
           cantReducido++;
         }else if(servicio.type === "Basico"){
           cantBasico++;
+        }else if(servicio.type === "Premium"){
+          cantPremium++;
         }
       });
-      const types = [{name:"Reducido", cant: cantReducido},{name:"Basico",cant:cantBasico}];
+      const types = [{name:"Reducido", cant: cantReducido},{name:"Basico",cant:cantBasico},
+                     {name:"Premium", cant: cantPremium}];
+      const data = types.map((type,index) => [type.name,type.cant]);
+      this.setState({ data: data });
+    }
+
+    setChartOtherServices() {
+      //Get otherServices count
+      alert('yes');
+      let cantCable = 0;
+      let cantInternet = 0;
+      let cantRed = 0;
+      this.state.servicios.map((servicio,index) => {
+        if(servicio.other_services === "Cable Digital"){
+          cantCable++;
+        }else if(servicio.other_services === "Internet"){
+          cantInternet++;
+        }else if(servicio.other_services === "Red privada de datos"){
+          cantRed++;
+        }
+      });
+      const types = [{name:"Cable Digital", cant: cantCable},{name:"Internet",cant:cantInternet},
+                     {name:"Red privada de datos", cant: cantRed}];
       const data = types.map((type,index) => [type.name,type.cant]);
       this.setState({ data: data });
     }
@@ -270,13 +317,20 @@ class App extends React.Component {
 
         ||((this.state.currentPage==='grafico') &&
         <div align="center"><h1>Analisis Grafico</h1>
+        <Label>Sucursal:</Label>
+        <Input type="select" onChange={this.handleGraphFields} name='type' value={this.props.id_sucursal_reg}>
+        <option key = "tipo">Tipo</option>
+        <option key = "ubicacion">Ubicacion</option>
+        <option key = "periodos">Periodos</option>
+        <option key = "otros">Otros servicios</option>
+        </Input>
         <ColumnChart data={this.state.data}/>
         <PieChart data={this.state.data} onClick={this.handleClick}/>
            </div> 
-      )
-              }
-            </div>
-            }
+        )
+        }
+        </div>
+        }
         </div>
       )
     }
