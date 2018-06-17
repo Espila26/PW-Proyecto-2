@@ -15,7 +15,7 @@ class App extends React.Component {
         reportes: [],id_reporte:0, id_suscriptor_rep:0, id_servicio_rep:0, date:'', type:'', description_rep:'',state_rep:'',
         suscriptores:[], id_suscriptor:0, name:'', phone_susc:0, address_susc:'', cedula: '', 
         servicios:[], id_servicio:0, id_suscriptor_servicio:0, location:'', code_serv:'', type_serv:'', instalation_date: '', other_services: '', state_serv:'', housing_type:'',  floor_number:0, external_hub_number:'', cable_number:'',instalation_belongs_to_suscriptor: '', tvs_number:'',
-        currentPage: 'login', data:[], error:'', tipoGrafico:''};
+        currentPage: 'login', data:[], error:'', tipoGrafico:'', tipoGraficoPeriodo:'', AnnoGrafico: '2018'};
         this.handleFields = this.handleFields.bind(this);
         this.handleChangeDataServicio = this.handleChangeDataServicio.bind(this);
         this.handleChangeDataSuscriptores = this.handleChangeDataSuscriptores.bind(this);
@@ -41,6 +41,9 @@ class App extends React.Component {
         this.setChartDataCuadras = this.setChartDataCuadras.bind(this);
         this.setChartDataRegiones = this.setChartDataRegiones.bind(this);
         this.setChartDataSucursal = this.setChartDataSucursal.bind(this);
+        this.setChartDataMes = this.setChartDataMes.bind(this);
+        this.setChartDataTrimestre = this.setChartDataTrimestre.bind(this);
+        this.setChartDataSemestre = this.setChartDataSemestre.bind(this);
 
     }
 
@@ -86,6 +89,25 @@ class App extends React.Component {
           this.setChartDataSucursal();
           break;
         case 'Periodo':
+          this.setChartDataMes();
+          break;
+        case '2017':
+          this.setState({AnnoGrafico: event.target.value});
+          break;
+        case '2018':
+          this.setState({AnnoGrafico: event.target.value});
+          break;
+        case '2019':
+          this.setState({AnnoGrafico: event.target.value});
+          break;
+        case 'Mes':
+          this.setChartDataMes();
+          break;
+        case 'Trimestre':
+          this.setChartDataTrimestre();
+          break;
+        case 'Semestre':
+          this.setChartDataSemestre();
           break;
         case 'Otros servicios':
           this.setChartOtherServices();
@@ -93,6 +115,7 @@ class App extends React.Component {
       }
 
       this.setState({tipoGrafico: event.target.value});
+      this.setState({tipoGraficoPeriodo: event.target.value});
 
     }
 
@@ -217,6 +240,63 @@ class App extends React.Component {
       const data = temp_sucursal.map((location,index) => [location.id,location.cant]);
       this.setState({ data: data });
     }
+
+    setChartDataMes(){
+      const anno = this.state.AnnoGrafico;
+      let periodos = [{Mes: '01', cant:0}, {Mes: '02', cant:0}, {Mes: '03', cant:0}, {Mes: '04', cant:0}, {Mes: '05', cant:0}, {Mes: '06', cant:0},
+                      {Mes: '07', cant:0}, {Mes: '08', cant:0}, {Mes: '09', cant:0}, {Mes: '10', cant:0}, {Mes: '11', cant:0}, {Mes: '12', cant:0}];
+      
+      for(let i = 0; i< this.state.servicios.length; i++){
+          const fechaMes = this.state.servicios[i].instalation_date.split('-');
+          const index = periodos.findIndex(periodo => periodo.Mes == fechaMes[1]);
+          periodos[index].cant++; 
+      }
+
+      const data = periodos.map((location,index) => [location.Mes,location.cant]);
+      this.setState({ data: data });
+
+    }
+
+    setChartDataTrimestre(){
+      const anno = this.state.AnnoGrafico;
+      let trimestres = [{trimestre: 'Primer Trimestre', cant:0}, {trimestre: 'Segundo Trimestre', cant:0}, {trimestre: 'Tercer Trimestre', cant:0}, {trimestre: 'Cuarto Trimestre', cant:0}]
+      
+      for(let i = 0; i< this.state.servicios.length; i++){
+          const fechaMes = this.state.servicios[i].instalation_date.split('-');
+          if (fechaMes[1] == '01' || fechaMes[1] == '02' || fechaMes[1] == '03'){
+              trimestres[0].cant++;
+          }else if(fechaMes[1] == '04' || fechaMes[1] == '05' || fechaMes[1] == '06'){
+            trimestres[1].cant++;
+          }else if(fechaMes[1] == '07' || fechaMes[1] == '08' || fechaMes[1] == '09'){
+            trimestres[2].cant++;
+          }else if(fechaMes[1] == '10' || fechaMes[1] == '11' || fechaMes[1] == '12'){
+            trimestres[3].cant++;
+          }
+      } 
+
+      const data = trimestres.map((location,index) => [location.trimestre,location.cant]);
+      this.setState({ data: data });
+
+    }
+
+    setChartDataSemestre(){
+      const anno = this.state.AnnoGrafico;
+      let semestres = [{semestre: 'Primer Semestre', cant:0}, {semestre: 'Segundo Semestre', cant:0}]
+      
+      for(let i = 0; i< this.state.servicios.length; i++){
+          const fechaMes = this.state.servicios[i].instalation_date.split('-');
+          if (fechaMes[1] == '01' || fechaMes[1] == '02' || fechaMes[1] == '03' || fechaMes[1] == '04' || fechaMes[1] == '05' || fechaMes[1] == '06'){
+              semestres[0].cant++;
+          }else if(fechaMes[1] == '07' || fechaMes[1] == '08' || fechaMes[1] == '09' || fechaMes[1] == '10' || fechaMes[1] == '11' || fechaMes[1] == '12'){
+              semestres[1].cant++;
+          }
+      }
+
+      const data = semestres.map((location,index) => [location.semestre,location.cant]);
+      this.setState({ data: data });
+
+    }
+
 
     handleChangeDataServicio(){
       this.handleReloadServicio();
@@ -431,6 +511,27 @@ class App extends React.Component {
           </Input>
           )
         }
+        
+        {
+          (this.state.tipoGrafico == 'Periodos' || this.state.tipoGraficoPeriodo == 'Trimestre' || this.state.tipoGraficoPeriodo == 'Semestre' || this.state.tipoGraficoPeriodo == 'Mes') && (
+            <Input type="select" onChange={this.handleGraphFields} name='tipoGraficoPeriodo'>
+              <option key = "trimestre">Trimestre</option>
+              <option key = "semestre">Semestre</option>
+              <option key = "mes">Mes</option>
+            </Input>
+          )
+        }
+
+        {
+          (this.state.tipoGraficoPeriodo == 'Trimestre' || this.state.tipoGraficoPeriodo == 'Semestre' || this.state.tipoGraficoPeriodo == 'Mes') && (
+            <Input type="select" onChange={this.handleGraphFields} name='AnnoGrafico'>
+              <option key = "2019">2019</option>
+              <option key = "2018">2018</option>
+              <option key = "2017">2017</option>
+            </Input>
+          )
+        }
+
         <ColumnChart data={this.state.data}/>
         <PieChart data={this.state.data} onClick={this.handleClick}/>
            </div> 
